@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>sprites.bmp</file>
+    </qresource>
+</RCC>
