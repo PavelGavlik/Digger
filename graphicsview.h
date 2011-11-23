@@ -10,6 +10,8 @@ public:
     explicit GraphicsView(QGraphicsScene *parent = 0);
 	void drawBackground(QPainter *painter, const QRectF &rect);
 
+	QList<QPixmap> sprites;
+private:
 	int level;
 
 signals:
