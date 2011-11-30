@@ -13,6 +13,7 @@ public:
 	 * @brief Constructor
 	 */
 	MainWindow(QWidget* parent=0, Qt::WindowFlags f=0);
+	//int heightForWidth(int) const;
 
 private:
         QMenuBar *menu;
