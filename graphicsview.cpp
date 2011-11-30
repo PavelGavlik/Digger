@@ -8,7 +8,7 @@ GraphicsView::GraphicsView(QGraphicsScene *parent) :
 	setCacheMode(QGraphicsView::CacheBackground);
 	setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 
-	QImage spriteImage = QImage(":/images/sprites.bmp");
+	QImage spriteImage = QImage(":/images/sprites.png");
 	int spriteDimensions[] = {
 		/* Red digger - loaded */
 		32,		16,		32,	30, /* right */
