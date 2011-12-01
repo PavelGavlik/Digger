@@ -13,12 +13,14 @@ HEADERS += \
     def.h \
     graphicsview.h
 SOURCES += \
-    main.cpp \
     window_main.cpp \
-    graphicsview.cpp
+    graphicsview.cpp \
+    qt_main.cpp
 
 RESOURCES += \
     main.qrc
+
+
 
 
 

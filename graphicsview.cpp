@@ -8,6 +8,11 @@ GraphicsView::GraphicsView(QGraphicsScene *parent) :
 	setCacheMode(QGraphicsView::CacheBackground);
 	setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 
+	this->spritesInit();
+}
+
+void GraphicsView::spritesInit()
+{
 	QImage spriteImage = QImage(":/images/sprites.png");
 	int spriteDimensions[] = {
 		/* Red digger - loaded */
@@ -84,6 +89,18 @@ GraphicsView::GraphicsView(QGraphicsScene *parent) :
 		824,	240,		32,	30,
 		912,	240,		32,	30,
 		1000,	240,		32,	30,
+
+		/* Various */
+		32,		296,		32,	30, /* emerald */
+		120,	296,		32,	30, /* bags */
+		208,	296,		32,	30,
+		296,	296,		32,	30,
+		384,	296,		32,	30,
+		472,	296,		32,	30, /* coins */
+
+		560,	296,		32,	30,
+		648,	296,		32,	30,
+		736,	296,		32,	30, /* bonus */
 
 		/* Level Backgrounds */
 		8,		512,	40,	8,

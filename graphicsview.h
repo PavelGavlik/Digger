@@ -12,6 +12,8 @@ public:
 
 	QList<QPixmap> sprites;
 private:
+	void spritesInit();
+
 	int level;
 
 signals:

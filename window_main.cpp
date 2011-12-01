@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags f) :
 	view = new GraphicsView(scene);
 
 	//scene->addPixmap(view->sprites[LASTDIGGER-1]);
-	scene->addPixmap(view->sprites[FIRSTMONSTER]);
+	scene->addPixmap(view->sprites[LASTBAG-1]);
 
 	setCentralWidget(view);
 	setMinimumSize(800, 400);
