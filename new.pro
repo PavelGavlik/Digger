@@ -9,20 +9,18 @@ INCLUDEPATH += .
 
 # Input
 HEADERS += \
-    window_main.h \
     def.h \
-    graphicsview.h
+    main.h \
+    digger.h \
+    drawing.h
 SOURCES += \
-    window_main.cpp \
-    graphicsview.cpp \
-    qt_main.cpp
+    main.cpp \
+    digger.cpp \
+    drawing.cpp \
+    game_data.cpp
 
 RESOURCES += \
     main.qrc
-
-
-
-
 
 
 
