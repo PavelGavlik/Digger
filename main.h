@@ -5,7 +5,7 @@
 #include <QMenuBar>
 #include "drawing.h"
 
-Sint4 getlevch(Sint4 x, Sint4 y, Sint4 l);
+int16_t getlevch(int16_t x, int16_t y, int16_t l);
 void game();
 
 

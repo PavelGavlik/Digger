@@ -10,7 +10,7 @@ class EmeraldItem : public QGraphicsPixmapItem
 public:
 	EmeraldItem();
 };
-void drawemerald(Sint4 x, Sint4 y);
+void drawemerald(int16_t x, int16_t y);
 
 class GraphicsScene : public QGraphicsScene
 {

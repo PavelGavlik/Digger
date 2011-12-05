@@ -1,6 +1,6 @@
 #include "def.h"
 
-Sint3 leveldat[8][MHEIGHT][MWIDTH+1]=
+int8_t leveldat[8][MHEIGHT][MWIDTH+1]=
 {{"S   B     HHHHS",
   "V  CC  C  V B  ",
   "VB CC  C  V    ",

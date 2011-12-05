@@ -7,34 +7,14 @@
 #ifndef _WINDOWS
 #define _WINDOWS
 #endif
-#ifndef WIN32
-#define WIN32
+#ifndef __WIN32__
+#define __WIN32__
 #endif
 #endif
 
-#if defined FREEBSD || defined LINUX || defined DARWIN
+#if defined(__FreeBSD__) || defined(__linux__) || defined(__APPLE__) || defined YOUR_UNIX_LIKE_ARCH_GOING_HERE
 #define UNIX
 #endif
-
-#ifdef TRUE
-#undef TRUE
-#endif
-
-#ifdef FALSE
-#undef FALSE
-#endif
-
-#define TRUE -1
-#define FALSE 0
-
-typedef signed char Sint3;
-typedef unsigned char Uint3;
-typedef signed short int Sint4;
-typedef unsigned short int Uint4;
-typedef signed int Sint;
-typedef unsigned int Uint;
-typedef signed long int Sint5;
-typedef unsigned long int Uint5;
 
 #define DIR_NONE -1
 #define DIR_RIGHT 0
@@ -90,11 +70,13 @@ typedef unsigned long int Uint5;
 #define INI_KEY_SETTINGS "Keys"
 #endif
 
-#ifdef _WINDOWS
+/* using lesser buffer size will break ie. alsa on linux, no reason to use
+ * lesser size anyways...
+ */
 #define DEFAULT_BUFFER 2048
+#ifdef _WINDOWS
 #define DEF_SND_DEV 1
 #else
-#define DEFAULT_BUFFER 128
 #ifdef ARM
 #define DEF_SND_DEV 1
 #else
@@ -102,11 +84,11 @@ typedef unsigned long int Uint5;
 #endif
 #endif
 
-#if !defined (_MSVC) && defined (WIN32)
+#if !defined (_MSVC) && defined (__WIN32__)
 #define _int64 LARGE_INTEGER
 #endif
 
-#ifdef WIN32
+#ifdef __WIN32__
  #if defined (RUNTIMEDYNAMICLINK) && !defined (DIRECTX)
   #define DIRECTX
  #endif
@@ -128,7 +110,7 @@ typedef unsigned long int Uint5;
  #endif 
 #endif
 
-#if defined ARM || defined WIN32 || defined UNIX || defined MINGW
+#if defined ARM || defined(__WIN32__) || defined UNIX || defined(__MINGW32__)
 #define FLATFILE
 #endif
 
@@ -143,12 +125,12 @@ typedef unsigned long int Uint5;
 
 #ifdef ARM
 #define ININAME "Digger:Settings"
-#elif defined FREEBSD && defined _VGL
+#elif defined(__FreeBSD__) && defined _VGL
 /* Applications using FreeBSD's console graphics running as root */
 #define ININAME "/var/games/digger/digger.rc"
 #elif defined UNIX && !defined _VGL
 /* While SDL and other X11 related apps could be runned as ordinary user */
-#ifdef FREEBSD
+#ifdef __FreeBSD__
 #include <sys/syslimits.h>
 #else /* I donno what is analog of PATH_MAX for Linux :( */
 #define PATH_MAX 1024
@@ -158,8 +140,8 @@ typedef unsigned long int Uint5;
 #define ININAME "DIGGER.INI"
 #endif
 
-#if defined FREEBSD || defined LINUX || defined DARWIN
-#include "fbsd_sup.h"
+#if defined(__FreeBSD__) || defined(__linux__) || defined(__APPLE__)
+//#include "fbsd_sup.h"
 #endif
 
 #ifdef UNIX
@@ -174,7 +156,7 @@ typedef unsigned long int Uint5;
 #elif defined _VGL
 #define DIGGER_VERSION "MS FBSD 20000407"
 #elif defined _SDL
-#define DIGGER_VERSION "MS SDL 20000407"
+#define DIGGER_VERSION "POK SDL 20110912"
 #else
 #define DIGGER_VERSION "AJ DOS 19990506"
 #endif

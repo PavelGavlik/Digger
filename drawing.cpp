@@ -9,7 +9,7 @@ EmeraldItem::EmeraldItem()
 	setPixmap(myScene->sprites[FIRSTEMERALD]);
 }
 
-void drawemerald(Sint4 x, Sint4 y)
+void drawemerald(int16_t x, int16_t y)
 {
 //	initmiscspr(x,y,4,10);
 //	drawmiscspr(x,y,108,4,10);
@@ -59,5 +59,5 @@ void GraphicsView::drawBackground(QPainter *painter, const QRectF &rect)
 
 void GraphicsView::resizeEvent(QResizeEvent *)
 {
-	//fitInView(scene()->sceneRect(), Qt::KeepAspectRatio);
+	fitInView(scene()->sceneRect(), Qt::KeepAspectRatio);
 }

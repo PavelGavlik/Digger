@@ -4,12 +4,12 @@
 #include "def.h"
 #include "digger.h"
 
-extern Sint3 leveldat[8][MHEIGHT][MWIDTH+1];
+extern int8_t leveldat[8][MHEIGHT][MWIDTH+1];
 
 bool levnotdrawn=FALSE,alldead=FALSE,unlimlives=FALSE,started;
 
 
-Sint4 getlevch(Sint4 x, Sint4 y, Sint4 l)
+int16_t getlevch(int16_t x, int16_t y, int16_t l)
 {
 //	if ((l==3 || l==4) && !levfflag && diggers==2 && y==9 && (x==6 || x==8))
 //		return 'H';
