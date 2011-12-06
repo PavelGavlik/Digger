@@ -1,4 +1,5 @@
 #include "drawing.h"
+#include "main.h"
 
 GraphicsScene *myScene;
 GraphicsView *myView;
@@ -11,12 +12,22 @@ EmeraldItem::EmeraldItem()
 
 void drawemerald(int16_t x, int16_t y)
 {
-//	initmiscspr(x,y,4,10);
-//	drawmiscspr(x,y,108,4,10);
-//	getis();
 	EmeraldItem *e = new EmeraldItem();
 	myScene->addItem(e);
 	e->setPos(x, y);
+}
+
+
+BagItem::BagItem(int16_t sprite)
+{
+	setPixmap(myScene->sprites[sprite]);
+}
+
+void drawbag(int16_t sprite, int16_t x, int16_t y)
+{
+	BagItem *b = new BagItem(sprite);
+	myScene->addItem(b);
+	b->setPos(x, y);
 }
 
 
@@ -24,6 +35,8 @@ GraphicsScene::GraphicsScene()
 {
 	myScene = this;
 
+	setSceneRect(0, 0, 640, 400);
+	addRect(0, 0, 640, 28, QPen(), QBrush(Qt::black));
 	this->spritesInit();
 }
 
@@ -48,16 +61,14 @@ GraphicsView::GraphicsView(QGraphicsScene *parent) :
 	setCacheMode(QGraphicsView::CacheBackground);
 	setRenderHint(QPainter::Antialiasing);
 	setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-
-	level = 1;//qrand() % 8;
 }
 
 void GraphicsView::drawBackground(QPainter *painter, const QRectF &rect)
 {
-	painter->fillRect(rect, QBrush(myScene->sprites[FIRSTBACKGROUND + level - 1]));
+	painter->fillRect(rect, QBrush(myScene->sprites[FIRSTBACKGROUND + levplan() - 1]));
 }
 
 void GraphicsView::resizeEvent(QResizeEvent *)
 {
-	fitInView(scene()->sceneRect(), Qt::KeepAspectRatio);
+	//fitInView(scene()->sceneRect(), Qt::KeepAspectRatio);
 }

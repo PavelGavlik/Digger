@@ -12,7 +12,7 @@ void makeemfield()
 	emmask = 1 << 0;//curplayer;
 	for (x = 0; x < MWIDTH; x++)
 		for (y = 0; y < MHEIGHT; y++)
-			if (getlevch(x, y, 1/*levplan()*/) == 'C')
+			if (getlevch(x, y, levplan()) == 'C')
 				emfield[y * MWIDTH + x] |= emmask;
 			else
 				emfield[y * MWIDTH + x] &= ~emmask;
@@ -25,5 +25,5 @@ void drawemeralds()
 	for (x = 0; x < MWIDTH; x++)
 		for (y = 0; y < MHEIGHT; y++)
 			if (emfield[y * MWIDTH + x] & emmask)
-				drawemerald(x * 32 + 12, y * 30 + 21);
+				drawemerald(x * 40 + 24, y * 36 + 36);
 }

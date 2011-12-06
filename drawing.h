@@ -12,6 +12,14 @@ public:
 };
 void drawemerald(int16_t x, int16_t y);
 
+
+class BagItem : public QGraphicsPixmapItem
+{
+public:
+	BagItem(int16_t sprite);
+};
+void drawbag(int16_t sprite, int16_t x, int16_t y);
+
 class GraphicsScene : public QGraphicsScene
 {
 	Q_OBJECT
@@ -23,6 +31,7 @@ private:
 	void spritesInit();
 };
 
+
 class GraphicsView : public QGraphicsView
 {
 	Q_OBJECT
@@ -31,9 +40,8 @@ public:
 	void drawBackground(QPainter *painter, const QRectF &rect);
 protected:
 	void resizeEvent(QResizeEvent *);
-private:
-	int level;
 };
+
 
 extern int spriteDimensions[];
 extern GraphicsScene *myScene;

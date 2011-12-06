@@ -12,15 +12,19 @@ HEADERS += \
     def.h \
     main.h \
     digger.h \
-    drawing.h
+    drawing.h \
+    bags.h
 SOURCES += \
     main.cpp \
     digger.cpp \
     drawing.cpp \
-    game_data.cpp
+    game_data.cpp \
+    bags.cpp
 
 RESOURCES += \
     main.qrc
+
+
 
 
 
