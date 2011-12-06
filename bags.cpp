@@ -43,8 +43,8 @@ void initbags(void)
 					bagdat[bag].wobbling = false;
 					bagdat[bag].wt = 15;
 					bagdat[bag].unfallen = true;
-					bagdat[bag].x = x * 40 + 24;
-					bagdat[bag].y = y * 36 + 36;
+					bagdat[bag].x = x * 20 + 12;
+					bagdat[bag].y = y * 18 + 18;
 					bagdat[bag].h = x;
 					bagdat[bag].v = y;
 					bagdat[bag].xr = 0;
@@ -66,7 +66,7 @@ void drawbags(void)
 		else
 			memcpy(&bagdat[bag], &bagdat2[bag], sizeof(struct bag));
 		if (bagdat[bag].exist)
-			drawbag(/*bag +*/ FIRSTBAG, bagdat[bag].x, bagdat[bag].y);
+			movedrawspr(/*bag +*/ FIRSTBAG, bagdat[bag].x, bagdat[bag].y);
 	}
 }
 

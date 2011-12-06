@@ -8,7 +8,7 @@
 extern int8_t leveldat[8][MHEIGHT][MWIDTH+1];
 
 char pldispbuf[14];
-int16_t curplayer = 0, nplayers = 1, penalty = 0, diggers = 1, startlev = 2;
+int16_t curplayer = 0, nplayers = 1, penalty = 0, diggers = 1, startlev = 3;
 bool unlimlives = false, gauntlet = false, timeout = false, synchvid = false;
 int gtime = 0;
 
@@ -38,7 +38,7 @@ int16_t getlevch(int16_t x, int16_t y, int16_t l)
 void initlevel(void)
 {
 	gamedat[curplayer].levdone = FALSE;
-//	makefield();
+	makefield();
 	makeemfield();
 	initbags();
 	levnotdrawn = TRUE;
@@ -46,12 +46,12 @@ void initlevel(void)
 
 void drawscreen(void)
 {
-//  creatembspr();
-//  drawstatics();
+//	creatembspr();
+	drawstatics();
 	drawbags();
 	drawemeralds();
-//  initdigger();
-//  initmonsters();
+//	initdigger();
+//	initmonsters();
 }
 
 void game(void)

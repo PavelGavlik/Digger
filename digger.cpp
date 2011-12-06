@@ -25,5 +25,5 @@ void drawemeralds()
 	for (x = 0; x < MWIDTH; x++)
 		for (y = 0; y < MHEIGHT; y++)
 			if (emfield[y * MWIDTH + x] & emmask)
-				drawemerald(x * 40 + 24, y * 36 + 36);
+				drawemerald(x * 20 + 12, y * 18 + 18);
 }

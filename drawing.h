@@ -5,20 +5,24 @@
 #include <QGraphicsPixmapItem>
 #include "def.h"
 
-class EmeraldItem : public QGraphicsPixmapItem
-{
-public:
-	EmeraldItem();
-};
+
+void movedrawspr(int16_t sprite, int16_t x, int16_t y);
 void drawemerald(int16_t x, int16_t y);
+void savefield(void);
+void makefield(void);
+void drawstatics(void);
+void drawrightblob(int16_t x, int16_t y);
+void drawleftblob(int16_t x, int16_t y);
+void drawtopblob(int16_t x, int16_t y);
+void drawbottomblob(int16_t x, int16_t y);
 
 
-class BagItem : public QGraphicsPixmapItem
+class Sprite : public QGraphicsPixmapItem
 {
 public:
-	BagItem(int16_t sprite);
+	Sprite(int16_t sprite);
 };
-void drawbag(int16_t sprite, int16_t x, int16_t y);
+
 
 class GraphicsScene : public QGraphicsScene
 {
