@@ -6,6 +6,7 @@ TEMPLATE = app
 TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
+QMAKE_CXXFLAGS += -Wno-write-strings
 
 # Input
 HEADERS += \
@@ -13,13 +14,29 @@ HEADERS += \
     main.h \
     digger.h \
     drawing.h \
-    bags.h
+    bags.h \
+    monster.h \
+    scores.h \
+    input.h \
+    record.h \
+    sound.h \
+    hardware.h \
+    sprite.h
 SOURCES += \
     main.cpp \
     digger.cpp \
     drawing.cpp \
     game_data.cpp \
-    bags.cpp
+    bags.cpp \
+    monster.cpp \
+    scores.cpp \
+    input.cpp \
+    record.cpp \
+    sound.cpp \
+    sprite.cpp \
+    qt_timer.cpp \
+    qt_kbd.cpp \
+    qt_vid.cpp
 
 RESOURCES += \
     main.qrc

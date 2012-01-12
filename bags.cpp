@@ -4,10 +4,10 @@
 #include "digger.h"
 #include "drawing.h"
 #include "main.h"
-/*#include "sprite.h"
 #include "sound.h"
+#include "sprite.h"
 #include "monster.h"
-#include "scores.h"*/
+#include "scores.h"
 
 struct bag
 {
@@ -17,11 +17,11 @@ struct bag
 
 int16_t pushcount = 0, goldtime = 0;
 
-/*void updatebag(int16_t bag);
+void updatebag(int16_t bag);
 void baghitground(int16_t bag);
 bool pushbag(int16_t bag, int16_t dir);
 void removebag(int16_t bn);
-void getgold(int16_t bag);*/
+void getgold(int16_t bag);
 
 void initbags(void)
 {
@@ -70,7 +70,7 @@ void drawbags(void)
 	}
 }
 
-/*void cleanupbags(void)
+void cleanupbags(void)
 {
 	int16_t bag;
 	soundfalloff();
@@ -466,4 +466,4 @@ void getgold(int16_t bag)
 	if (f)
 		mongold();
 	removebag(bag);
-}*/
+}

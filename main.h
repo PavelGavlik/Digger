@@ -13,10 +13,16 @@ extern int32_t randv;
 extern int gtime;
 extern bool gauntlet, timeout, synchvid, unlimlives;
 
-int16_t getlevch(int16_t x, int16_t y, int16_t l);
-void game(void);
+int16_t getlevch(int16_t bp6, int16_t bp8, int16_t bpa);
+void incpenalty(void);
 int16_t levplan(void);
 int16_t levof10(void);
+void setdead(bool df);
+void cleartopline(void);
+void finish(void);
+int16_t randno(int16_t n);
+void game(void);
+//int mainprog(void);
 
 
 class MainWindow : public QMainWindow
