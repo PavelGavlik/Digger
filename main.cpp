@@ -214,9 +214,6 @@ void game(void)
 
 int mainprog(void)
 {
-	game();
-	return 0;
-
 	int16_t frame, t, x = 0;
 	loadscores();
 	escape = false;
@@ -753,8 +750,15 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags f) :
 	setCentralWidget(view);
 	setMinimumSize(640, 400);
 
+
+	gamedat[0].level = startlev;
+	initlevel();
+	initlives();
+	initdigger();
+	drawscreen();
+	dodigger();
 	show();
-	mainprog();
+	//mainprog();
 }
 
 
@@ -764,7 +768,7 @@ int main(int argc, char *argv[])
 //	ginit();
 //	gpal(0);
 //	setretr(true);
-//	initkeyb();
+	initkeyb();
 //	detectjoy();
 //	inir();
 //	initsound();

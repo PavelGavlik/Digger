@@ -6,9 +6,12 @@
 #include "def.h"
 #include "digger.h"
 #include "main.h"
-//#include "hardware.h"
+#include "hardware.h"
 #include "sprite.h"
 //#include "sound.h"
+
+#include "input.h"
+#include "monster.h"
 
 GraphicsScene *myScene;
 GraphicsView *myView;
@@ -41,7 +44,7 @@ void outtext(char *p, int16_t x, int16_t y, int16_t c)
 	{
 		//gwrite(x, y, isalnum(p[i]) ? p[i] : ' ', c);
 		QGraphicsSimpleTextItem *t = myScene->addSimpleText(QString(isalnum(p[i]) ? p[i] : ' '));
-		t->setBrush(QColor(255, 255, 0));
+		t->setBrush(QColor(c+250, 255, 0));
 		t->setPos(x, y);
 		x += 12;
 	}
@@ -516,5 +519,12 @@ void GraphicsView::resizeEvent(QResizeEvent *)
 
 void GraphicsView::keyPressEvent(QKeyEvent *event)
 {
-	qDebug() << event->text();
+	PressKey(event->key());
+	checkkeyb();
+	dodigger();
+}
+
+void GraphicsView::keyReleaseEvent(QKeyEvent *event)
+{
+	ReleaseKey(event->key());
 }

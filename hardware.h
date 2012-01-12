@@ -21,6 +21,8 @@ void initkeyb(void);
 void restorekeyb(void);
 int16_t getkey(void);
 bool kbhit(void);
+void PressKey(int16_t key);
+void ReleaseKey(int16_t key);
 
 void graphicsoff(void);
 void gretrace(void);

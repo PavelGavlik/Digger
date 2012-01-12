@@ -235,6 +235,46 @@ int keycodes[17][5] = { {SDLK_RIGHT, -2, -2, -2, -2},	// 1 Right
 
 #else
 
+#ifdef Q_OBJECT
+
+bool GetAsyncKeyState(int16_t);
+
+// Default key codes
+
+int keycodes[17][5] = { {Qt::Key_Right, -2, -2, -2, -2},	// 1 Right
+{Qt::Key_Up, -2, -2, -2, -2},		// 1 Up
+{Qt::Key_Left, -2, -2, -2, -2},	// 1 Left
+{Qt::Key_Down, -2, -2, -2, -2},	// 1 Down
+{Qt::Key_F1, -2, -2, -2, -2},		// 1 Fire
+{Qt::Key_S, -2, -2, -2, -2},		// 2 Right
+{Qt::Key_W, -2, -2, -2, -2},		// 2 Up
+{Qt::Key_A, -2, -2, -2, -2},		// 2 Left
+{Qt::Key_Z, -2, -2, -2, -2},		// 2 Down
+{Qt::Key_Tab, -2, -2, -2, -2},		// 2 Fire
+{Qt::Key_T, -2, -2, -2, -2},		// Cheat
+{Qt::Key_Plus, -2, -2, -2, -2},	// Accelerate
+{Qt::Key_Minus, -2, -2, -2, -2},	// Brake
+{Qt::Key_F7, -2, -2, -2, -2},		// Music
+{Qt::Key_F9, -2, -2, -2, -2},		// Sound
+{Qt::Key_F10, -2, -2, -2, -2},		// Exit
+{Qt::Key_Space, -2, -2, -2, -2}
+};								// Pause
+
+#define ASCIIF8 322
+
+#define rightpressed  (GetAsyncKeyState(keycodes[0][0]))
+#define uppressed     (GetAsyncKeyState(keycodes[1][0]))
+#define leftpressed   (GetAsyncKeyState(keycodes[2][0]))
+#define downpressed   (GetAsyncKeyState(keycodes[3][0]))
+#define f1pressed     (GetAsyncKeyState(keycodes[4][0]))
+#define right2pressed (GetAsyncKeyState(keycodes[5][0]))
+#define up2pressed    (GetAsyncKeyState(keycodes[6][0]))
+#define left2pressed  (GetAsyncKeyState(keycodes[7][0]))
+#define down2pressed  (GetAsyncKeyState(keycodes[8][0]))
+#define f12pressed    (GetAsyncKeyState(keycodes[9][0]))
+
+#else
+
 bool leftpressed = false, rightpressed = false, uppressed = false, downpressed =
 	false, f1pressed = false, left2pressed = false, right2pressed =
 	false, up2pressed = false, down2pressed = false, f12pressed = false;
@@ -265,12 +305,13 @@ int keycodes[17][5] = { {0x4d, 0xcd, 0x14d, -2, -2},	// 1 Right
 #endif
 #endif
 #endif
+#endif
 
 #if !defined(_SDL) && !defined(_VGL)
 static uint16_t scancode;
 #endif
 
-#if !defined(_WINDOWS) && !defined(_SDL) && !defined(_VGL)
+#if !defined(_WINDOWS) && !defined(_SDL) && !defined(_VGL) && !defined(Q_OBJECT)
 static int pki;
 
 static bool *flagp[10] = {

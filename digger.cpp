@@ -370,7 +370,7 @@ void erasediggers(void)
 	int i;
 	for (i = 0; i < diggers; i++)
 		erasespr(FIRSTDIGGER + i);
-	digvisible = false;
+	//digvisible = false;
 }
 
 void drawexplosion(int n)
@@ -731,7 +731,7 @@ void killdigger(int n, int16_t stage, int16_t bag)
 		return;
 	if (digdat[n].deathstage < 2 || digdat[n].deathstage > 4)
 	{
-		digdat[n].alive = false;
+		//digdat[n].alive = false;
 		digdat[n].deathstage = stage;
 		digdat[n].deathbag = bag;
 	}
@@ -779,7 +779,7 @@ bool hitemerald(int16_t x, int16_t y, int16_t rx, int16_t ry, int16_t dir)
 	{
 		if (r == embox[dir])
 		{
-			drawemerald(x * 20 + 12, y * 18 + 21);
+			//drawemerald(x * 20 + 12, y * 18 + 21);
 			incpenalty();
 		}
 		if (r == embox[dir + 1])

@@ -65,6 +65,7 @@ public:
 protected:
 	void resizeEvent(QResizeEvent *);
 	void keyPressEvent(QKeyEvent *event);
+	void keyReleaseEvent(QKeyEvent *event);
 };
 
 
