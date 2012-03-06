@@ -41,6 +41,9 @@ class Sprite : public QGraphicsPixmapItem
 {
 public:
 	Sprite(int16_t sprite);
+	int16_t type;
+private:
+	int16_t getNewId(int16_t oldId);
 };
 
 

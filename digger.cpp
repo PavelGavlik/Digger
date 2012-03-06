@@ -370,7 +370,7 @@ void erasediggers(void)
 	int i;
 	for (i = 0; i < diggers; i++)
 		erasespr(FIRSTDIGGER + i);
-	//digvisible = false;
+	digvisible = false;
 }
 
 void drawexplosion(int n)
@@ -731,7 +731,7 @@ void killdigger(int n, int16_t stage, int16_t bag)
 		return;
 	if (digdat[n].deathstage < 2 || digdat[n].deathstage > 4)
 	{
-		//digdat[n].alive = false;
+		digdat[n].alive = false;
 		digdat[n].deathstage = stage;
 		digdat[n].deathbag = bag;
 	}

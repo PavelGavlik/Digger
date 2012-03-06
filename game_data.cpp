@@ -83,7 +83,8 @@ int8_t leveldat[8][MHEIGHT][MWIDTH+1]=
   "HHHHHHHHHHHHHHH"}};
 
 int spriteDimensions[] = {
-	/* Red digger - loaded */
+	0,0,0,0,
+	/* 0 Red digger - loaded */
 	32,		16,		32,	30, /* right */
 	120,	16,		32,	30,
 	208,	16,		32,	30,
@@ -98,7 +99,7 @@ int spriteDimensions[] = {
 	912,	16,		32,	30,
 	1000,	16,		32,	30,
 
-	/* Red digger - unloaded */
+	/* 12 Red digger - unloaded */
 	32,		72,		32,	30, /* right */
 	120,	72,		32,	30,
 	208,	72,		32,	30,
@@ -113,7 +114,7 @@ int spriteDimensions[] = {
 	912,	72,		32,	30,
 	1000,	72,		32,	30,
 
-	/* Green digger - loaded */
+	/* 24 Green digger - loaded */
 	32,		128,		32,	30, /* right */
 	120,	128,		32,	30,
 	208,	128,		32,	30,
@@ -128,7 +129,7 @@ int spriteDimensions[] = {
 	912,	128,		32,	30,
 	1000,	128,		32,	30,
 
-	/* Green digger - unloaded */
+	/* 36 Green digger - unloaded */
 	32,		184,		32,	30, /* right */
 	120,	184,		32,	30,
 	208,	184,		32,	30,
@@ -143,7 +144,7 @@ int spriteDimensions[] = {
 	912,	184,		32,	30,
 	1000,	184,		32,	30,
 
-	/* Monsters */
+	/* 48 Monsters */
 	32,		240,		32,	30, /* first */
 	120,	240,		32,	30,
 	208,	240,		32,	30,
@@ -158,7 +159,7 @@ int spriteDimensions[] = {
 	912,	240,		32,	30,
 	1000,	240,		32,	30,
 
-	/* Various */
+	/* 60 Various */
 	32,		296,		32,	30, /* emerald */
 	120,	296,		32,	30, /* bags */
 	208,	296,		32,	30,
@@ -170,7 +171,7 @@ int spriteDimensions[] = {
 	648,	296,		32,	30,
 	736,	296,		32,	30, /* bonus */
 
-	/* Statics */
+	/* 69 Statics */
 	584,	406,		16,	36,
 	640,	406,		16,	36,
 	732,	406,		44,	12,
@@ -178,7 +179,7 @@ int spriteDimensions[] = {
 	912,	408,		32,	30,
 	1000,	408,		32,	30,
 
-	/* Level Backgrounds */
+	/* 75 Level Backgrounds */
 	8,		512,	40,	8,
 	96,		512,	40,	8,
 	184,	512,	40,	8,
