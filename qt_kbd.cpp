@@ -32,7 +32,6 @@ void restorekeyb(void)
 
 int16_t getkey(void)
 {
-	qDebug() << key_buffer;
 	int16_t key = key_buffer;
 	key_buffer = -1;
 	return key;

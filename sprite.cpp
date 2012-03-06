@@ -3,6 +3,8 @@
 #include "sprite.h"
 #include "hardware.h"
 
+#include "drawing.h"
+
 bool retrflag = true;
 
 bool sprrdrwf[SPRITES + 1];
@@ -93,6 +95,8 @@ void erasespr(int16_t n)
 
 void drawspr(int16_t n, int16_t x, int16_t y)
 {
+	movedrawspr(n, x, y);
+
 	int16_t t1, t2, t3, t4;
 	x &= -4;
 	clearrdrwf();

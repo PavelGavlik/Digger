@@ -522,6 +522,7 @@ void GraphicsView::keyPressEvent(QKeyEvent *event)
 	PressKey(event->key());
 	checkkeyb();
 	dodigger();
+	domonsters();
 }
 
 void GraphicsView::keyReleaseEvent(QKeyEvent *event)

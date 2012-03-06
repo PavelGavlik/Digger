@@ -192,7 +192,8 @@ void mprintf(char *f, ...)
 {
 	va_list ap;
 	char buf[80];
-	int i, l;
+	int l;
+	//int i;
 	va_start(ap, f);
 	vsprintf(buf, f, ap);
 	l = strlen(buf);
