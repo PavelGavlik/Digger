@@ -43,10 +43,7 @@ void outtext(char *p, int16_t x, int16_t y, int16_t c)
 	int16_t i;
 	for (i = 0; p[i]; i++)
 	{
-		//gwrite(x, y, isalnum(p[i]) ? p[i] : ' ', c);
-		QGraphicsSimpleTextItem *t = myScene->addSimpleText(QString(isalnum(p[i]) ? p[i] : ' '));
-		t->setBrush(QColor(c+250, 255, 0));
-		t->setPos(x, y);
+		gwrite(x, y, isalnum(p[i]) ? p[i] : ' ', c);
 		x += 12;
 	}
 }
@@ -521,7 +518,9 @@ int16_t Sprite::getNewId(int16_t oldId)
 			return FIRSTEMERALD;
 		// case 109: ERASE EMERALD
 		default:
-			if (oldId >= myScene->sprites.length() || oldId == 0)
+			if (oldId >= 120 && oldId <= 160)
+				return oldId - 36;
+			else if (oldId >= myScene->sprites.length() || oldId == 0)
 			{
 				qDebug() << oldId << "not found";
 				return 1;
@@ -566,6 +565,7 @@ void GraphicsScene::spritesInit()
 					   spriteDimensions[id], spriteDimensions[id + 1],
 					   spriteDimensions[id + 2], spriteDimensions[id + 3]));
 	}
+	qDebug() << sprites.length();
 }
 
 
@@ -581,7 +581,11 @@ GraphicsView::GraphicsView(QGraphicsScene *parent) :
 
 void GraphicsView::drawBackground(QPainter *painter, const QRectF &rect)
 {
-	painter->fillRect(rect, QBrush(myScene->sprites[FIRSTBACKGROUND + levplan() - 1]));
+	int16_t lvl = levplan();
+	if (lvl == 0)
+		painter->fillRect(rect, Qt::black);
+	else
+		painter->fillRect(rect, QBrush(myScene->sprites[FIRSTBACKGROUND + lvl - 1]));
 }
 
 void GraphicsView::resizeEvent(QResizeEvent *)

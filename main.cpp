@@ -307,6 +307,10 @@ int mainprog(void)
 			frame++;
 			if (frame > 250)
 				frame = 0;
+
+			// TODO: remove
+			if (frame == 195)
+				break;
 		}
 		if (savedrf)
 		{
@@ -321,7 +325,7 @@ int mainprog(void)
 		if (escape)
 			break;
 		recinit();
-		game();
+		//game();
 		gotgame = true;
 		if (gotname)
 		{
@@ -330,6 +334,8 @@ int mainprog(void)
 		}
 		savedrf = false;
 		escape = false;
+
+		break;
 	} while (!escape);
 	finish();
 	return 0;
@@ -751,14 +757,14 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags f) :
 	setMinimumSize(640, 400);
 
 
-	gamedat[0].level = startlev;
-	initlevel();
-	initlives();
-	initdigger();
-	drawscreen();
-	dodigger();
+//	gamedat[0].level = startlev;
+//	initlevel();
+//	initlives();
+//	initdigger();
+//	drawscreen();
+//	dodigger();
 	show();
-	//mainprog();
+	mainprog();
 }
 
 
