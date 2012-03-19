@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <QApplication>
 #include <QMainWindow>
 #include <QMenuBar>
 #include "drawing.h"
@@ -22,7 +23,7 @@ void cleartopline(void);
 void finish(void);
 int16_t randno(int16_t n);
 void game(void);
-//int mainprog(void);
+int mainprog(void);
 
 
 class MainWindow : public QMainWindow
@@ -38,6 +39,8 @@ public:
 	GraphicsScene *scene;
 private:
 	QMenuBar *menu;
+public slots:
+	void titlescreenframeslot(void);
 };
 
 #endif // MAIN_H

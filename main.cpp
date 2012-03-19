@@ -1,5 +1,5 @@
-#include <QApplication>
 #include <QTime>
+#include <QTimer>
 #include "main.h"
 #include "bags.h"
 #include "def.h"
@@ -13,6 +13,7 @@
 #include "sprite.h"
 
 extern int8_t leveldat[8][MHEIGHT][MWIDTH+1];
+MainWindow *mainWindow;
 
 char pldispbuf[14];
 int16_t curplayer = 0, nplayers = 1, penalty = 0, diggers = 1, startlev = 1;
@@ -212,9 +213,81 @@ void game(void)
 #endif
 }
 
+void titlescreenframe(void)
+{
+	static int16_t frame = 0;
+	int16_t t, x = 0;
+
+	if (frame == 0)
+		for (t = 54; t < 174; t += 12)
+			outtext("            ", 164, t, 0);
+	if (frame == 50)
+	{
+		movedrawspr(FIRSTMONSTER, 292, 63);
+		x = 292;
+	}
+	if (frame > 50 && frame <= 77)
+	{
+		x -= 4;
+		drawmon(0, 1, DIR_LEFT, x, 63);
+	}
+	if (frame > 77)
+		drawmon(0, 1, DIR_RIGHT, 184, 63);
+	if (frame == 83)
+		outtext("NOBBIN", 216, 64, 2);
+	if (frame == 90)
+	{
+		movedrawspr(FIRSTMONSTER + 1, 292, 82);
+		drawmon(1, 0, DIR_LEFT, 292, 82);
+		x = 292;
+	}
+	if (frame > 90 && frame <= 117)
+	{
+		x -= 4;
+		drawmon(1, 0, DIR_LEFT, x, 82);
+	}
+	if (frame > 117)
+		drawmon(1, 0, DIR_RIGHT, 184, 82);
+	if (frame == 123)
+		outtext("HOBBIN", 216, 83, 2);
+	if (frame == 130)
+	{
+		movedrawspr(FIRSTDIGGER, 292, 101);
+		drawdigger(0, DIR_LEFT, 292, 101, 1);
+		x = 292;
+	}
+	if (frame > 130 && frame <= 157)
+	{
+		x -= 4;
+		drawdigger(0, DIR_LEFT, x, 101, 1);
+	}
+	if (frame > 157)
+		drawdigger(0, DIR_RIGHT, 184, 101, 1);
+	if (frame == 163)
+		outtext("DIGGER", 216, 102, 2);
+	if (frame == 178)
+	{
+		movedrawspr(FIRSTBAG, 184, 120);
+		drawgold(0, 0, 184, 120);
+	}
+	if (frame == 183)
+		outtext("GOLD", 216, 121, 2);
+	if (frame == 198)
+		drawemerald(184, 141);
+	if (frame == 203)
+		outtext("EMERALD", 216, 140, 2);
+	if (frame == 218)
+		drawbonus(184, 158);
+	if (frame == 223)
+		outtext("BONUS", 216, 159, 2);
+	newframe();
+	frame++;
+	if (frame > 250)
+		frame = 0;
+}
+
 int mainprog(void)
 {
-	int16_t frame, t, x = 0;
 	loadscores();
 	escape = false;
 	do
@@ -228,10 +301,9 @@ int mainprog(void)
 		shownplayers();
 		showtable();
 		started = false;
-		frame = 0;
 		newframe();
 		teststart();
-		while (!started)
+		//while (!started)
 		{
 			started = teststart();
 			if ((akeypressed == 27 || akeypressed == 'n' || akeypressed == 'N')
@@ -241,76 +313,8 @@ int mainprog(void)
 				shownplayers();
 				akeypressed = 0;
 			}
-			if (frame == 0)
-				for (t = 54; t < 174; t += 12)
-					outtext("            ", 164, t, 0);
-			if (frame == 50)
-			{
-				movedrawspr(FIRSTMONSTER, 292, 63);
-				x = 292;
-			}
-			if (frame > 50 && frame <= 77)
-			{
-				x -= 4;
-				drawmon(0, 1, DIR_LEFT, x, 63);
-			}
-			if (frame > 77)
-				drawmon(0, 1, DIR_RIGHT, 184, 63);
-			if (frame == 83)
-				outtext("NOBBIN", 216, 64, 2);
-			if (frame == 90)
-			{
-				movedrawspr(FIRSTMONSTER + 1, 292, 82);
-				drawmon(1, 0, DIR_LEFT, 292, 82);
-				x = 292;
-			}
-			if (frame > 90 && frame <= 117)
-			{
-				x -= 4;
-				drawmon(1, 0, DIR_LEFT, x, 82);
-			}
-			if (frame > 117)
-				drawmon(1, 0, DIR_RIGHT, 184, 82);
-			if (frame == 123)
-				outtext("HOBBIN", 216, 83, 2);
-			if (frame == 130)
-			{
-				movedrawspr(FIRSTDIGGER, 292, 101);
-				drawdigger(0, DIR_LEFT, 292, 101, 1);
-				x = 292;
-			}
-			if (frame > 130 && frame <= 157)
-			{
-				x -= 4;
-				drawdigger(0, DIR_LEFT, x, 101, 1);
-			}
-			if (frame > 157)
-				drawdigger(0, DIR_RIGHT, 184, 101, 1);
-			if (frame == 163)
-				outtext("DIGGER", 216, 102, 2);
-			if (frame == 178)
-			{
-				movedrawspr(FIRSTBAG, 184, 120);
-				drawgold(0, 0, 184, 120);
-			}
-			if (frame == 183)
-				outtext("GOLD", 216, 121, 2);
-			if (frame == 198)
-				drawemerald(184, 141);
-			if (frame == 203)
-				outtext("EMERALD", 216, 140, 2);
-			if (frame == 218)
-				drawbonus(184, 158);
-			if (frame == 223)
-				outtext("BONUS", 216, 159, 2);
-			newframe();
-			frame++;
-			if (frame > 250)
-				frame = 0;
 
-			// TODO: remove
-			if (frame == 195)
-				break;
+			mainWindow->titlescreenframeslot();
 		}
 		if (savedrf)
 		{
@@ -764,18 +768,23 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags f) :
 //	drawscreen();
 //	dodigger();
 	show();
-	mainprog();
+}
+
+void MainWindow::titlescreenframeslot(void)
+{
+	QTimer::singleShot(100, mainWindow, SLOT(titlescreenframeslot()));
+	titlescreenframe();
 }
 
 
 int main(int argc, char *argv[])
 {
-//	calibrate();
-//	ginit();
-//	gpal(0);
-//	setretr(true);
+	calibrate();
+	ginit();
+	gpal(0);
+	setretr(true);
 	initkeyb();
-//	detectjoy();
+	detectjoy();
 //	inir();
 //	initsound();
 //	recstart();
@@ -786,7 +795,8 @@ int main(int argc, char *argv[])
 
 	QApplication app(argc, argv);
 	qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-	MainWindow window;
+	mainWindow = new MainWindow;
 
+	mainprog();
 	return app.exec();
 }
