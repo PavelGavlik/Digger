@@ -542,14 +542,6 @@ GraphicsScene::GraphicsScene()
 	this->spritesInit();
 }
 
-/*void movedrawspr(int16_t sprite, int16_t x, int16_t y)
-{qDebug() << "movedrawspr";
-	Sprite *s = new Sprite(sprite);
-	myScene->addItem(s);
-	s->setPos(x * 2, y * 2);
-	qDebug() << "/movedrawspr";
-}*/
-
 void gretrace(void)
 {
 }
@@ -596,10 +588,6 @@ void GraphicsView::resizeEvent(QResizeEvent *)
 void GraphicsView::keyPressEvent(QKeyEvent *event)
 {
 	PressKey(event->key());
-	checkkeyb();
-	dodigger();
-	domonsters();
-	dobags();
 }
 
 void GraphicsView::keyReleaseEvent(QKeyEvent *event)

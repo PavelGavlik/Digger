@@ -65,7 +65,7 @@ void createspr(int16_t n, int16_t ch, uint8_t * mov, int16_t wid, int16_t hei,
 }
 
 void movedrawspr(int16_t n, int16_t x, int16_t y)
-{qDebug() << "movedrawspr" << n;
+{
 	sprx[n] = x & -4;
 	spry[n] = y;
 	sprch[n] = sprnch[n];
@@ -80,7 +80,6 @@ void movedrawspr(int16_t n, int16_t x, int16_t y)
 	sprenf[n] = true;
 	sprrdrwf[n] = true;
 	putims();
-	qDebug() << "/movedrawspr";
 }
 
 void erasespr(int16_t n)
@@ -95,9 +94,7 @@ void erasespr(int16_t n)
 }
 
 void drawspr(int16_t n, int16_t x, int16_t y)
-{qDebug() << "drawspr" << n;
-	//movedrawspr(n, x, y);
-
+{
 	int16_t t1, t2, t3, t4;
 	x &= -4;
 	clearrdrwf();
@@ -129,7 +126,6 @@ void drawspr(int16_t n, int16_t x, int16_t y)
 	ggeti(sprx[n], spry[n], sprmov[n], sprwid[n], sprhei[n]);
 	putims();
 	bcollides(n);
-	qDebug() << "/drawspr";
 }
 
 void initspr(int16_t n, int16_t ch, int16_t wid, int16_t hei, int16_t bwid,

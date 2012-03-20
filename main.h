@@ -41,6 +41,7 @@ private:
 	QMenuBar *menu;
 public slots:
 	void titlescreenframeslot(void);
+	void gamephaseslot(void);
 };
 
 #endif // MAIN_H

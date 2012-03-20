@@ -57,6 +57,18 @@ int16_t getlevch(int16_t x, int16_t y, int16_t l)
 	return leveldat[l-1][y][x];
 }
 
+void gamephase(void)
+{
+	penalty = 0;
+	dodigger();
+	domonsters();
+	dobags();
+	if (penalty > 8)
+		incmont(penalty - 8);
+	testpause();
+	checklevdone();
+}
+
 void game(void)
 {
 	int16_t t, c, i;
@@ -136,14 +148,9 @@ void game(void)
 			while (!alldead && !gamedat[curplayer].levdone && !escape &&
 				   !timeout)
 			{
-				penalty = 0;
-				dodigger();
-				domonsters();
-				dobags();
-				if (penalty > 8)
-					incmont(penalty - 8);
-				testpause();
-				checklevdone();
+				//gamephase();
+				mainWindow->gamephaseslot();
+				return;
 			}
 			erasediggers();
 			musicoff();
@@ -776,6 +783,12 @@ void MainWindow::titlescreenframeslot(void)
 	titlescreenframe();
 }
 
+void MainWindow::gamephaseslot(void)
+{
+	QTimer::singleShot(100, mainWindow, SLOT(gamephaseslot()));
+	gamephase();
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -797,6 +810,7 @@ int main(int argc, char *argv[])
 	qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
 	mainWindow = new MainWindow;
 
-	mainprog();
+	//mainprog();
+	game();
 	return app.exec();
 }
