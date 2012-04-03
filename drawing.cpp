@@ -482,18 +482,6 @@ int16_t Sprite::getNewId(int16_t oldId)
 {
 	switch (oldId)
 	{
-		case 13: // LEFT
-			return 4;
-		case 14:
-			return 5;
-		case 15:
-			return 6;
-		case 19: // DOWN
-			return 10;
-		case 20:
-			return 11;
-		case 21:
-			return 12;
 		case 68:
 		case 69:
 			return FIRSTMONSTER;
@@ -518,6 +506,7 @@ int16_t Sprite::getNewId(int16_t oldId)
 			return FIRSTEMERALD;
 		// case 109: ERASE EMERALD
 		default:
+			// text sprites
 			if (oldId >= 120 && oldId <= 160)
 				return oldId - 36;
 			else if (oldId >= myScene->sprites.length() || oldId == 0)
@@ -574,7 +563,7 @@ GraphicsView::GraphicsView(QGraphicsScene *parent) :
 void GraphicsView::drawBackground(QPainter *painter, const QRectF &rect)
 {
 	int16_t lvl = levplan();
-	if (lvl == 0)
+	if (lvl <= 0)
 		painter->fillRect(rect, Qt::black);
 	else
 		painter->fillRect(rect, QBrush(myScene->sprites[FIRSTBACKGROUND + lvl - 1]));
