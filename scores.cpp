@@ -416,7 +416,7 @@ void scoreeatm(int n, int msc)
 }
 
 void writenum(int32_t n, int16_t x, int16_t y, int16_t w, int16_t c)
-{qDebug() << "score" << n;
+{
 	int16_t d, xp = (w - 1) * 12 + x;
 	while (w > 0)
 	{

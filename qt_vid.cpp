@@ -52,7 +52,7 @@ int16_t vgagetpix(int16_t x, int16_t y)
 
 void vgaputim(int16_t x, int16_t y, int16_t ch, int16_t w, int16_t h)
 {
-	qDebug() << "putim" << x << y << w << h << "ch" << ch;
+	//qDebug() << "putim" << x << y << w << h << "ch" << ch;
 	Sprite *s = new Sprite(ch);
 	myScene->addItem(s);
 	s->setPos(x * 2, y * 2);

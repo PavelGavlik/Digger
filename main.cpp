@@ -18,6 +18,7 @@ MainWindow *mainWindow;
 char pldispbuf[14];
 int16_t curplayer = 0, nplayers = 1, penalty = 0, diggers = 1, startlev = 1;
 bool unlimlives = false, gauntlet = false, timeout = false, synchvid = false;
+bool flashplayer = false;
 int gtime = 0;
 
 static struct game
@@ -57,6 +58,62 @@ int16_t getlevch(int16_t x, int16_t y, int16_t l)
 	return leveldat[l-1][y][x];
 }
 
+void beforegamephase(void)
+{
+	int16_t t, c, i;
+
+	initmbspr();
+
+	if (playing)
+		randv = playgetrand();
+	else
+		randv = getlrt();
+#ifdef INTDRF
+	fprintf(info, "%lu\n", randv);
+	frame = 0;
+#endif
+	recputrand(randv);
+	if (levnotdrawn)
+	{
+		levnotdrawn = false;
+		drawscreen();
+		if (flashplayer)
+		{
+			flashplayer = false;
+			strcpy(pldispbuf, "PLAYER ");
+			if (curplayer == 0)
+				strcat(pldispbuf, "1");
+			else
+				strcat(pldispbuf, "2");
+			cleartopline();
+			for (t = 0; t < 15; t++)
+				for (c = 1; c <= 3; c++)
+				{
+					outtext(pldispbuf, 108, 0, c);
+					writecurscore(c);
+					newframe();
+					if (escape)
+						return;
+				}
+			drawscores();
+			for (i = 0; i < diggers; i++)
+				addscore(i, 0);
+		}
+	}
+	else
+		initchars();
+	outtext("        ", 108, 0, 3);
+	initscores();
+	drawlives();
+	music(1);
+
+	flushkeybuf();
+	for (i = 0; i < diggers; i++)
+		readdirect(i);
+
+	mainWindow->gamephaseslot();
+}
+
 void gamephase(void)
 {
 	penalty = 0;
@@ -69,10 +126,87 @@ void gamephase(void)
 	checklevdone();
 }
 
+void aftergamephase(void)
+{
+	int16_t t, i;
+
+	erasediggers();
+	musicoff();
+	t = 20;
+	while ((getnmovingbags() != 0 || t != 0) && !escape && !timeout)
+	{
+		if (t != 0)
+			t--;
+		penalty = 0;
+		dobags();
+		dodigger();
+		domonsters();
+		if (penalty < 8)
+			t = 0;
+	}
+	soundstop();
+	for (i = 0; i < diggers; i++)
+		killfire(i);
+	erasebonus();
+	cleanupbags();
+	savefield();
+	erasemonsters();
+	recputeol();
+	if (playing)
+		playskipeol();
+	if (escape)
+		recputeog();
+//	if (gamedat[curplayer].levdone)
+//		soundlevdone();
+	if (countem() == 0 || gamedat[curplayer].levdone)
+	{
+#ifdef INTDRF
+		fprintf(info, "%i\n", frame);
+#endif
+		for (i = curplayer; i < diggers + curplayer; i++)
+			if (getlives(i) > 0 && !digalive(i))
+				declife(i);
+		drawlives();
+		gamedat[curplayer].level++;
+		if (gamedat[curplayer].level > 1000)
+			gamedat[curplayer].level = 1000;
+		initlevel();
+	}
+	else if (alldead)
+	{
+#ifdef INTDRF
+		fprintf(info, "%i\n", frame);
+#endif
+		for (i = curplayer; i < curplayer + diggers; i++)
+			if (getlives(i) > 0)
+				declife(i);
+		drawlives();
+	}
+	if ((alldead && getalllives() == 0 && !gauntlet && !escape) ||
+		timeout)
+		endofgame();
+
+
+	if (!alldead && !escape && !timeout)
+		beforegamephase();
+	else
+	{
+		alldead = false;
+		if (nplayers == 2 && getlives(1 - curplayer) != 0)
+		{
+			curplayer = 1 - curplayer;
+			flashplayer = levnotdrawn = true;
+		}
+
+		if (getalllives() != 0 && !escape && !timeout)
+			beforegamephase();
+		//else
+			// intro
+	}
+}
+
 void game(void)
 {
-	int16_t t, c, i;
-	bool flashplayer = false;
 	if (gauntlet)
 	{
 		cgtime = gtime * 1193181l;
@@ -93,128 +227,11 @@ void game(void)
 	if (nplayers == 2)
 		flashplayer = true;
 	curplayer = 0;
-	while (getalllives() != 0 && !escape && !timeout)
-	{
-		while (!alldead && !escape && !timeout)
-		{
-			initmbspr();
 
-			if (playing)
-				randv = playgetrand();
-			else
-				randv = getlrt();
-#ifdef INTDRF
-			fprintf(info, "%lu\n", randv);
-			frame = 0;
-#endif
-			recputrand(randv);
-			if (levnotdrawn)
-			{
-				levnotdrawn = false;
-				drawscreen();
-				if (flashplayer)
-				{
-					flashplayer = false;
-					strcpy(pldispbuf, "PLAYER ");
-					if (curplayer == 0)
-						strcat(pldispbuf, "1");
-					else
-						strcat(pldispbuf, "2");
-					cleartopline();
-					for (t = 0; t < 15; t++)
-						for (c = 1; c <= 3; c++)
-						{
-							outtext(pldispbuf, 108, 0, c);
-							writecurscore(c);
-							newframe();
-							if (escape)
-								return;
-						}
-					drawscores();
-					for (i = 0; i < diggers; i++)
-						addscore(i, 0);
-				}
-			}
-			else
-				initchars();
-			outtext("        ", 108, 0, 3);
-			initscores();
-			drawlives();
-			music(1);
 
-			flushkeybuf();
-			for (i = 0; i < diggers; i++)
-				readdirect(i);
-			while (!alldead && !gamedat[curplayer].levdone && !escape &&
-				   !timeout)
-			{
-				//gamephase();
-				mainWindow->gamephaseslot();
-				return;
-			}
-			erasediggers();
-			musicoff();
-			t = 20;
-			while ((getnmovingbags() != 0 || t != 0) && !escape && !timeout)
-			{
-				if (t != 0)
-					t--;
-				penalty = 0;
-				dobags();
-				dodigger();
-				domonsters();
-				if (penalty < 8)
-					t = 0;
-			}
-			soundstop();
-			for (i = 0; i < diggers; i++)
-				killfire(i);
-			erasebonus();
-			cleanupbags();
-			savefield();
-			erasemonsters();
-			recputeol();
-			if (playing)
-				playskipeol();
-			if (escape)
-				recputeog();
-			if (gamedat[curplayer].levdone)
-				soundlevdone();
-			if (countem() == 0 || gamedat[curplayer].levdone)
-			{
-#ifdef INTDRF
-				fprintf(info, "%i\n", frame);
-#endif
-				for (i = curplayer; i < diggers + curplayer; i++)
-					if (getlives(i) > 0 && !digalive(i))
-						declife(i);
-				drawlives();
-				gamedat[curplayer].level++;
-				if (gamedat[curplayer].level > 1000)
-					gamedat[curplayer].level = 1000;
-				initlevel();
-			}
-			else if (alldead)
-			{
-#ifdef INTDRF
-				fprintf(info, "%i\n", frame);
-#endif
-				for (i = curplayer; i < curplayer + diggers; i++)
-					if (getlives(i) > 0)
-						declife(i);
-				drawlives();
-			}
-			if ((alldead && getalllives() == 0 && !gauntlet && !escape) ||
-				timeout)
-				endofgame();
-		}
-		alldead = false;
-		if (nplayers == 2 && getlives(1 - curplayer) != 0)
-		{
-			curplayer = 1 - curplayer;
-			flashplayer = levnotdrawn = true;
-		}
-	}
+	beforegamephase();
+
+
 #ifdef INTDRF
 	fprintf(info, "-1\n%lu\n%i", getscore0(), gamedat[0].level);
 #endif
@@ -416,6 +433,7 @@ void initlevel(void)
 
 void drawscreen(void)
 {
+	myScene->clear();
 	creatembspr();
 	drawstatics();
 	drawbags();
@@ -785,8 +803,14 @@ void MainWindow::titlescreenframeslot(void)
 
 void MainWindow::gamephaseslot(void)
 {
-	QTimer::singleShot(100, mainWindow, SLOT(gamephaseslot()));
-	gamephase();
+	if (!(!alldead && !gamedat[curplayer].levdone && !escape &&
+		 !timeout))
+		aftergamephase();
+	else
+	{
+		QTimer::singleShot(100, mainWindow, SLOT(gamephaseslot()));
+		gamephase();
+	}
 }
 
 
