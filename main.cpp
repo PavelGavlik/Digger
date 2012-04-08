@@ -240,7 +240,8 @@ void game(void)
 void titlescreenframe(void)
 {
 	static int16_t frame = 0;
-	int16_t t, x = 0;
+	static int16_t x = 0;
+	int16_t t;
 
 	if (frame == 0)
 		for (t = 54; t < 174; t += 12)
@@ -821,13 +822,12 @@ int main(int argc, char *argv[])
 	inittimer();
 
 	parsecmd(argc, argv);
-//	return mainprog();
 
 	QApplication app(argc, argv);
 	qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
 	mainWindow = new MainWindow;
 
-	//mainprog();
-	game();
+	mainprog();
+	//game();
 	return app.exec();
 }
