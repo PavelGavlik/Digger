@@ -1,12 +1,12 @@
 #include <string.h>
 #include "def.h"
 #include "bags.h"
-#include "digger.h"
-#include "drawing.h"
 #include "main.h"
-#include "sound.h"
 #include "sprite.h"
+#include "sound.h"
+#include "drawing.h"
 #include "monster.h"
+#include "digger.h"
 #include "scores.h"
 
 struct bag
