@@ -252,7 +252,6 @@ void drawlife(int16_t t, int16_t x, int16_t y)
 
 void drawemerald(int16_t x, int16_t y)
 {
-	//movedrawspr(FIRSTEMERALD, x, y);
 	initmiscspr(x, y, 4, 10);
 	drawmiscspr(x, y, 108, 4, 10);
 	getis();
@@ -261,7 +260,7 @@ void drawemerald(int16_t x, int16_t y)
 void eraseemerald(int16_t x, int16_t y)
 {
 	initmiscspr(x, y, 4, 10);
-	drawmiscspr(x, y, 109, 4, 10);
+	//drawmiscspr(x, y, 109, 4, 10);
 	getis();
 }
 
@@ -303,7 +302,6 @@ void initdbfspr(void)
 
 void drawrightblob(int16_t x, int16_t y)
 {
-	//movedrawspr(FIRSTSTATIC, x + 16, y - 1);//, 102, 2, 18);
 	initmiscspr(x + 16, y - 1, 2, 18);
 	drawmiscspr(x + 16, y - 1, 102, 2, 18);
 	getis();
@@ -311,7 +309,6 @@ void drawrightblob(int16_t x, int16_t y)
 
 void drawleftblob(int16_t x, int16_t y)
 {
-	//movedrawspr(FIRSTSTATIC+1, x - 8, y - 1);//, 104, 2, 18);
 	initmiscspr(x - 8, y - 1, 2, 18);
 	drawmiscspr(x - 8, y - 1, 104, 2, 18);
 	getis();
@@ -319,7 +316,6 @@ void drawleftblob(int16_t x, int16_t y)
 
 void drawtopblob(int16_t x, int16_t y)
 {
-	//movedrawspr(FIRSTSTATIC+2, x - 2, y - 6);//, 103, 6, 6);
 	initmiscspr(x - 4, y - 6, 6, 6);
 	drawmiscspr(x - 4, y - 6, 103, 6, 6);
 	getis();
@@ -327,7 +323,6 @@ void drawtopblob(int16_t x, int16_t y)
 
 void drawbottomblob(int16_t x, int16_t y)
 {
-	//movedrawspr(FIRSTSTATIC+3, x - 2, y + 15);//, 105, 6, 6);
 	initmiscspr(x - 4, y + 15, 6, 6);
 	drawmiscspr(x - 4, y + 15, 105, 6, 6);
 	getis();
@@ -480,45 +475,13 @@ Sprite::Sprite(int16_t sprite)
 
 int16_t Sprite::getNewId(int16_t oldId)
 {
-	switch (oldId)
+	if (oldId >= myScene->sprites.length() || oldId == 0)
 	{
-		case 68:
-		case 69:
-			return FIRSTMONSTER;
-		case 70:
-		case 71:
-			return FIRSTMONSTER+1;
-		case 72:
-		case 73:
-			return FIRSTMONSTER+2;
-		case 74:
-		case 75:
-			return FIRSTMONSTER+3;
-		case 102:
-			return FIRSTSTATIC;
-		case 103:
-			return FIRSTSTATIC+2;
-		case 104:
-			return FIRSTSTATIC+1;
-		case 105:
-			return FIRSTSTATIC+3;
-		case 108:
-			return FIRSTEMERALD;
-		// case 109: ERASE EMERALD
-		default:
-			// text sprites
-			if (oldId >= 120 && oldId <= 160)
-				return oldId - 36;
-			else if (oldId >= myScene->sprites.length() || oldId == 0)
-			{
-				qDebug() << oldId << "not found";
-				return 1;
-			}
-			else if (oldId <= 32)
-				return oldId;
-			else
-				return oldId + 1;
+		qDebug() << oldId << "not found";
+		return 81;
 	}
+	else
+		return oldId;
 }
 
 
@@ -539,14 +502,13 @@ void gretrace(void)
 void GraphicsScene::spritesInit()
 {
 	QImage spriteImage = QImage(":/images/sprites.png");
-	for (int i = 0; i < SPRITES; i++)
+	for (int i = 0; i < 160; i++)
 	{
 		int id = i * 4;
 		sprites << QPixmap::fromImage(spriteImage.copy(
 					   spriteDimensions[id], spriteDimensions[id + 1],
 					   spriteDimensions[id + 2], spriteDimensions[id + 3]));
 	}
-	qDebug() << sprites.length();
 }
 
 
@@ -566,7 +528,7 @@ void GraphicsView::drawBackground(QPainter *painter, const QRectF &rect)
 	if (lvl <= 0)
 		painter->fillRect(rect, Qt::black);
 	else
-		painter->fillRect(rect, QBrush(myScene->sprites[FIRSTBACKGROUND + lvl - 1]));
+		painter->fillRect(rect, QBrush(myScene->sprites[96 + lvl - 1]));
 }
 
 void GraphicsView::resizeEvent(QResizeEvent *)
