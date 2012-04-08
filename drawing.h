@@ -40,7 +40,7 @@ void movedrawspr(int16_t n, int16_t x, int16_t y);
 class Sprite : public QGraphicsPixmapItem
 {
 public:
-	Sprite(int16_t sprite);
+	Sprite(int16_t spriteId);
 	int16_t type;
 private:
 	int16_t getNewId(int16_t oldId);
@@ -52,6 +52,7 @@ class GraphicsScene : public QGraphicsScene
 	Q_OBJECT
 public:
 	explicit GraphicsScene();
+	void addSprite(int16_t spriteId, int16_t x, int16_t y);
 
 	QList<QPixmap> sprites;
 private:

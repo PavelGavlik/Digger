@@ -53,9 +53,7 @@ int16_t vgagetpix(int16_t x, int16_t y)
 void vgaputim(int16_t x, int16_t y, int16_t ch, int16_t w, int16_t h)
 {
 	//qDebug() << "putim" << x << y << w << h << "ch" << ch;
-	Sprite *s = new Sprite(ch);
-	myScene->addItem(s);
-	s->setPos(x * 2, y * 2);
+	myScene->addSprite(ch, x, y);
 }
 
 // used usually for text
@@ -64,21 +62,13 @@ void vgawrite(int16_t x, int16_t y, int16_t ch, int16_t c)
 	int16_t textSpriteOffset = 55,
 			numberSpriteOffset = 98;
 
-	Sprite *s = NULL;
 	if ((ch - 32) >= 0x5f || ch < 32)
 		return;
 
 	if (ch >= 'A' && ch <= 'Z')
-		s = new Sprite(textSpriteOffset + ch);
+		myScene->addSprite(textSpriteOffset + ch, x, y);
 	if (ch >= '0' && ch <= '9')
-		s = new Sprite(numberSpriteOffset + ch);
-
-	if (s)
-	{
-		//qDebug() << "write" << x << y << "char" << (char)ch << "c" << c;
-		myScene->addItem(s);
-		s->setPos(x * 2, y * 2);
-	}
+		myScene->addSprite(numberSpriteOffset + ch, x, y);
 }
 
 void vgatitle(void)

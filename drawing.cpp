@@ -466,22 +466,20 @@ void drawlives(void)
 	drawbackg(0);
 }
 
-
-Sprite::Sprite(int16_t sprite)
+void gretrace(void)
 {
-	setPixmap(myScene->sprites[this->getNewId(sprite)]);
-	this->type = sprite;
 }
 
-int16_t Sprite::getNewId(int16_t oldId)
+
+Sprite::Sprite(int16_t spriteId)
 {
-	if (oldId >= myScene->sprites.length() || oldId == 0)
-	{
-		qDebug() << oldId << "not found";
-		return 81;
-	}
-	else
-		return oldId;
+	setPixmap(myScene->sprites[spriteId]);
+
+	// prevent digger and monster flickering by setting higher z-index
+	if (spriteId <= 93)
+		setZValue(1);
+
+	this->type = spriteId;
 }
 
 
@@ -492,10 +490,6 @@ GraphicsScene::GraphicsScene()
 	setSceneRect(0, 0, 640, 400);
 	addRect(0, 0, 640, 28, QPen(), QBrush(Qt::black));
 	this->spritesInit();
-}
-
-void gretrace(void)
-{
 }
 
 
@@ -509,6 +503,19 @@ void GraphicsScene::spritesInit()
 					   spriteDimensions[id], spriteDimensions[id + 1],
 					   spriteDimensions[id + 2], spriteDimensions[id + 3]));
 	}
+}
+
+void GraphicsScene::addSprite(int16_t spriteId, int16_t x, int16_t y)
+{
+	if (spriteId <= 0 || spriteId >= myScene->sprites.length())
+	{
+		qDebug() << spriteId << "not found";
+		return;
+	}
+
+	Sprite *s = new Sprite(spriteId);
+	myScene->addItem(s);
+	s->setPos(x * 2, y * 2);
 }
 
 

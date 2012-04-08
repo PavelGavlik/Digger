@@ -785,13 +785,6 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags f) :
 	setCentralWidget(view);
 	setMinimumSize(640, 400);
 
-
-//	gamedat[0].level = startlev;
-//	initlevel();
-//	initlives();
-//	initdigger();
-//	drawscreen();
-//	dodigger();
 	show();
 }
 
