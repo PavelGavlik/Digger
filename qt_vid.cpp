@@ -46,7 +46,7 @@ void vgageti(int16_t x, int16_t y, uint8_t * /*p*/, int16_t w, int16_t h)
 
 int16_t vgagetpix(int16_t x, int16_t y)
 {
-	qDebug() << "getpix" << x << y;
+	//qDebug() << "getpix" << x << y;
 	return 0;
 }
 

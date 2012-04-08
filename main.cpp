@@ -200,8 +200,8 @@ void aftergamephase(void)
 
 		if (getalllives() != 0 && !escape && !timeout)
 			beforegamephase();
-		//else
-			// intro
+		else
+			mainprog();
 	}
 }
 
@@ -313,6 +313,8 @@ void titlescreenframe(void)
 
 int mainprog(void)
 {
+	myScene->clear();
+
 	loadscores();
 	escape = false;
 	do
@@ -328,19 +330,12 @@ int mainprog(void)
 		started = false;
 		newframe();
 		teststart();
-		//while (!started)
-		{
-			started = teststart();
-			if ((akeypressed == 27 || akeypressed == 'n' || akeypressed == 'N')
-				&& !gauntlet && diggers == 1)
-			{
-				switchnplayers();
-				shownplayers();
-				akeypressed = 0;
-			}
 
-			mainWindow->titlescreenframeslot();
-		}
+
+		mainWindow->titlescreenframeslot();
+		return 0;
+
+
 		if (savedrf)
 		{
 			if (gotgame)
@@ -791,6 +786,21 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags f) :
 
 void MainWindow::titlescreenframeslot(void)
 {
+	started = teststart();
+	if (started)
+	{
+		game();
+		return;
+	}
+
+	if ((akeypressed == 27 || akeypressed == 'n' || akeypressed == 'N')
+		&& !gauntlet && diggers == 1)
+	{
+		switchnplayers();
+		shownplayers();
+		akeypressed = 0;
+	}
+
 	QTimer::singleShot(100, mainWindow, SLOT(titlescreenframeslot()));
 	titlescreenframe();
 }
@@ -828,6 +838,5 @@ int main(int argc, char *argv[])
 	mainWindow = new MainWindow;
 
 	mainprog();
-	//game();
 	return app.exec();
 }
