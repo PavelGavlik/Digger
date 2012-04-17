@@ -188,20 +188,20 @@ int spriteDimensions[] = {
 	1000,	240,	32,	30,
 
 	736,	296,	32,	30, /* 81 bonus */
-	0,0,0,0, //	vgafire1
-	0,0,0,0, //	vgafire2
-	0,0,0,0, //	vgafire3
-	0,0,0,0, //	vgaexp1 /* 85 */
+	32,		408,	32,	30, //	vgafire1
+	120,	408,	32,	30, //	vgafire2
+	208,	408,	32,	30, //	vgafire3
+	296,	408,	32,	30, //	vgaexp1
 
-	0,0,0,0, //	vgaexp2
-	0,0,0,0, //	vgaexp3
-	0,0,0,0, //	vgafire1
-	0,0,0,0, //	vgafire2
-	0,0,0,0, //	vgafire3 /* 90 */
+	384,	408,	32,	30, //	vgaexp2
+	472,	408,	32,	30, //  vgaexp3
+	296,	408,	32,	30, //	vgafire1
+	384,	408,	32,	30, //	vgafire2
+	472,	408,	32,	30, //	vgafire3 /* 90 */
 
-	0,0,0,0, //	vgaexp1
-	0,0,0,0, //	vgaexp2
-	0,0,0,0, //	vgaexp3
+	296,	408,	32,	30, //	vgaexp1
+	384,	408,	32,	30, //	vgaexp2
+	472,	408,	32,	30, //  vgaexp3
 
 	/* 94 Level Backgrounds */
 	8,		512,	40,	8,
@@ -233,13 +233,13 @@ int spriteDimensions[] = {
 	8,		568,	20,	28, // vgazero480
 	912,	352,	32,	30, // vgaleftlife
 
-	0,0,0,0, //	vgafire1b
-	0,0,0,0, //	115 vgafire2b
+	32,		464,	32,	30, //	vgafire1b
+	120,	464,	32,	30, //	vgafire2b
 
-	0,0,0,0, //	vgafire3b
-	0,0,0,0, //	vgaexp1b
-	0,0,0,0, //	vgaexp2b
-	0,0,0,0, //	119 vgaexp3b
+	208,	464,	32,	30, //	vgafire3b
+	296,	464,	32,	30, //	vgaexp1b
+	384,	464,	32,	30, //	vgaexp2b
+	472,	464,	32,	30, //  vgaexp3b
 
 	/* 120 Text Font */
 	8,		568,	20,	28, /* A */

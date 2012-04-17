@@ -313,8 +313,6 @@ void titlescreenframe(void)
 
 int mainprog(void)
 {
-	myScene->clear();
-
 	loadscores();
 	escape = false;
 	do
@@ -349,7 +347,7 @@ int mainprog(void)
 		if (escape)
 			break;
 		recinit();
-		//game();
+		game();
 		gotgame = true;
 		if (gotname)
 		{
@@ -430,6 +428,7 @@ void initlevel(void)
 void drawscreen(void)
 {
 	myScene->clear();
+
 	creatembspr();
 	drawstatics();
 	drawbags();

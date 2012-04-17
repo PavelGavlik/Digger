@@ -201,49 +201,49 @@ void addscore(int n, int16_t score)
 
 void endofgame(void)
 {
-	int16_t i;
-	bool initflag = false;
-	for (i = 0; i < diggers; i++)
-		addscore(i, 0);
-	if (playing || !drfvalid)
-		return;
-	if (gauntlet)
-	{
-		cleartopline();
-		outtext("TIME UP", 120, 0, 3);
-		for (i = 0; i < 50 && !escape; i++)
-			newframe();
-		outtext("       ", 120, 0, 3);
-	}
-	for (i = curplayer; i < curplayer + diggers; i++)
-	{
-		scoret = scdat[i].score;
-		if (scoret > scorehigh[11])
-		{
-			gclear();
-			drawscores();
-			strcpy(pldispbuf, "PLAYER ");
-			if (i == 0)
-				strcat(pldispbuf, "1");
-			else
-				strcat(pldispbuf, "2");
-			outtext(pldispbuf, 108, 0, 2);
-			outtext(" NEW HIGH SCORE ", 64, 40, 2);
-			getinitials();
-			shufflehigh();
-			savescores();
-			initflag = true;
-		}
-	}
-	if (!initflag && !gauntlet)
-	{
-		cleartopline();
-		outtext("GAME OVER", 104, 0, 3);
-		for (i = 0; i < 50 && !escape; i++)
-			newframe();
-		outtext("         ", 104, 0, 3);
-		setretr(true);
-	}
+//	int16_t i;
+//	bool initflag = false;
+//	for (i = 0; i < diggers; i++)
+//		addscore(i, 0);
+//	if (playing || !drfvalid)
+//		return;
+//	if (gauntlet)
+//	{
+//		cleartopline();
+//		outtext("TIME UP", 120, 0, 3);
+//		for (i = 0; i < 50 && !escape; i++)
+//			newframe();
+//		outtext("       ", 120, 0, 3);
+//	}
+//	for (i = curplayer; i < curplayer + diggers; i++)
+//	{
+//		scoret = scdat[i].score;
+//		if (scoret > scorehigh[11])
+//		{
+//			gclear();
+//			drawscores();
+//			strcpy(pldispbuf, "PLAYER ");
+//			if (i == 0)
+//				strcat(pldispbuf, "1");
+//			else
+//				strcat(pldispbuf, "2");
+//			outtext(pldispbuf, 108, 0, 2);
+//			outtext(" NEW HIGH SCORE ", 64, 40, 2);
+//			getinitials();
+//			shufflehigh();
+//			savescores();
+//			initflag = true;
+//		}
+//	}
+//	if (!initflag && !gauntlet)
+//	{
+//		cleartopline();
+//		outtext("GAME OVER", 104, 0, 3);
+//		for (i = 0; i < 50 && !escape; i++)
+//			newframe();
+//		outtext("         ", 104, 0, 3);
+//		setretr(true);
+//	}
 }
 
 void showtable(void)

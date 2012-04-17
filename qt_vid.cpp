@@ -15,7 +15,7 @@ void vgainit(void)
 
 void vgaclear(void)
 {
-
+	myScene->clear();
 }
 
 void vgainten(int16_t /*inten*/)
