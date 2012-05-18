@@ -245,7 +245,7 @@ void drawgold(int16_t n, int16_t t, int16_t x, int16_t y)
 	drawspr(FIRSTBAG + n, x, y);
 }
 
-void drawlife(int16_t t, int16_t x, int16_t y)
+void drawlife(int16_t, int16_t x, int16_t y)
 {
 	drawmiscspr(x, y, /*t +*/ 110, 4, 12);
 }

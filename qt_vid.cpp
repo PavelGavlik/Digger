@@ -28,9 +28,13 @@ void vgapal(int16_t /*pal*/)
 
 }
 
-void vgaputi(int16_t x, int16_t y, uint8_t * /*p*/, int16_t w, int16_t h)
+void vgaputi(int16_t x, int16_t y, uint8_t *p, int16_t w, int16_t h)
 {
+	Q_UNUSED(p);
+	Q_UNUSED(w);
+	Q_UNUSED(h);
 	//qDebug() << "puti" << x << y << w << h;
+
 	QList<QGraphicsItem *> items = myScene->items(x * 2, y * 2, 32, 30, Qt::ContainsItemBoundingRect);
 	for	(int i = 0; i < items.length(); i++)
 	{
@@ -39,19 +43,28 @@ void vgaputi(int16_t x, int16_t y, uint8_t * /*p*/, int16_t w, int16_t h)
 	}
 }
 
-void vgageti(int16_t x, int16_t y, uint8_t * /*p*/, int16_t w, int16_t h)
+void vgageti(int16_t x, int16_t y, uint8_t *p, int16_t w, int16_t h)
 {
+	Q_UNUSED(x);
+	Q_UNUSED(y);
+	Q_UNUSED(p);
+	Q_UNUSED(w);
+	Q_UNUSED(h);
 	//qDebug() << "geti" << x << y << w << h;
 }
 
 int16_t vgagetpix(int16_t x, int16_t y)
 {
+	Q_UNUSED(x);
+	Q_UNUSED(y);
 	//qDebug() << "getpix" << x << y;
 	return 0;
 }
 
 void vgaputim(int16_t x, int16_t y, int16_t ch, int16_t w, int16_t h)
 {
+	Q_UNUSED(w);
+	Q_UNUSED(h);
 	//qDebug() << "putim" << x << y << w << h << "ch" << ch;
 	myScene->addSprite(ch, x, y);
 }
@@ -59,6 +72,7 @@ void vgaputim(int16_t x, int16_t y, int16_t ch, int16_t w, int16_t h)
 // used usually for text
 void vgawrite(int16_t x, int16_t y, int16_t ch, int16_t c)
 {
+	Q_UNUSED(c);
 	int16_t textSpriteOffset = 55,
 			numberSpriteOffset = 98;
 

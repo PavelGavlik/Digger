@@ -2,6 +2,7 @@
 #define DEF_H
 
 #include <QDebug>
+#include <stdint.h>
 
 #ifdef GNU32
 #ifndef _WINDOWS
