@@ -37,6 +37,7 @@ uint16_t bonusscore = 20000;
 bool gotinitflag = false;
 
 int16_t initialsi;
+bool initflag;
 
 void readscores(void);
 void writescores(void);
@@ -57,14 +58,14 @@ static void numtostring(char *p, int32_t n);
 
 #define SFNAME "/var/games/digger/digger.sco"
 
-#elif defined UNIX && !defined _VGL
+//#elif defined UNIX && !defined _VGL
 
-#define SFNAME "~/.digger.sco"
+//#define SFNAME "~/.digger.sco"
 //strncat(strncpy(malloc(PATH_MAX),getenv("HOME"),PATH_MAX),"/.digger.sco",PATH_MAX)
 
 #else
 
-#define SFNAME "DIGGER.SCO"
+#define SFNAME "digger.sco"
 
 #endif
 
@@ -99,9 +100,9 @@ void writescores(void)
 {
 	FILE *out;
 	if (!levfflag)
-	{
+	{qDebug() << SFNAME << fopen(SFNAME, "wb");
 		if ((out = fopen(SFNAME, "wb")) != NULL)
-		{
+		{qDebug() << out;
 			fwrite(scorebuf, 512, 1, out);
 			fclose(out);
 		}
@@ -207,7 +208,7 @@ void addscore(int n, int16_t score)
 void endofgame(void)
 {
 	int16_t i;
-	bool initflag = false;
+	initflag = false;
 	for (i = 0; i < diggers; i++)
 		addscore(i, 0);
 	if (playing || !drfvalid)
@@ -234,20 +235,13 @@ void endofgame(void)
 				strcat(pldispbuf, "2");
 			outtext(pldispbuf, 108, 0, 2);
 			outtext(" NEW HIGH SCORE ", 64, 40, 2);
-//			beforegetinitials();
-			shufflehigh();
-			savescores();
 			initflag = true;
+			beforegetinitials();
 		}
 	}
 	if (!initflag && !gauntlet)
 	{
-		cleartopline();
-		outtext("GAME OVER", 104, 0, 3);
-		for (i = 0; i < 50 && !escape; i++)
-			newframe();
-		outtext("         ", 104, 0, 3);
-		setretr(true);
+		afterendofgame();
 	}
 }
 
@@ -317,14 +311,15 @@ void maingetinitials(void)
 		QTimer::singleShot(100, mainWindow, SLOT(getinitials()));
 	else
 	{
+		gwrite(initialsi * 24 + 128, 130, k, 3);
+		scoreinit[0][initialsi] = k;
+
 		initialsi++;
+
 		if (initialsi < 3)
 			maingetinitials();
 		else
 			aftergetinitials();
-
-		gwrite(initialsi * 24 + 128, 130, k, 3);
-		scoreinit[0][initialsi] = k;
 	}
 
 }
@@ -337,6 +332,10 @@ void aftergetinitials(void)
 	ginten(0);
 	setretr(true);
 	recputinit(scoreinit[0]);
+
+	shufflehigh();
+	savescores();
+	afterendofgame();
 }
 
 void flashywait(int16_t n)

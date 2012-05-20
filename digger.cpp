@@ -861,7 +861,7 @@ void initlives(void)
 {
 	int i;
 	for (i = 0; i < diggers + nplayers - 1; i++)
-		digdat[i].lives = 2;//3;
+		digdat[i].lives = 3;
 }
 
 void declife(int pl)

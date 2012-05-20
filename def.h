@@ -155,7 +155,7 @@ Sprite order is figured out here. By LAST I mean last+1.
 /* While SDL and other X11 related apps could be runned as ordinary user */
 #ifdef __FreeBSD__
 #include <sys/syslimits.h>
-#else /* I donno what is analog of PATH_MAX for Linux :( */
+#elif !defined(__linux__) /* I donno what is analog of PATH_MAX for Linux :( */
 #define PATH_MAX 1024
 #endif
 #define ININAME strncat(strncpy(malloc(PATH_MAX),getenv("HOME"),PATH_MAX),"/.digger.rc",PATH_MAX)

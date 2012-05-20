@@ -122,7 +122,7 @@ void gamephase(void)
 	dobags();
 	if (penalty > 8)
 		incmont(penalty - 8);
-	testpause();
+//	testpause();
 	checklevdone();
 }
 
@@ -184,9 +184,16 @@ void aftergamephase(void)
 	}
 	if ((alldead && getalllives() == 0 && !gauntlet && !escape) ||
 		timeout)
+	{
+		gamedat[0].level = 0;
 		endofgame();
+	}
+	else
+		afterendofgame();
+}
 
-
+void afterendofgame(void)
+{
 	if (!alldead && !escape && !timeout)
 		beforegamephase();
 	else
@@ -327,7 +334,7 @@ int mainprog(void)
 		gtitle();
 		outtext("D I G G E R", 100, 0, 3);
 		shownplayers();
-//		showtable();
+		showtable();
 		started = false;
 		newframe();
 		teststart();
@@ -402,7 +409,7 @@ void shownplayers(void)
 	else
 	{
 		outtext("TWO", 220, 25, 3);
-		outtext(" PLAYERS", 184, 39, 3);
+		outtext(" PLAYERS", 192, 39, 3);
 	}
 }
 

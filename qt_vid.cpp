@@ -90,7 +90,7 @@ void vgawrite(int16_t x, int16_t y, int16_t ch, int16_t c)
 
 	if (ch >= 'A' && ch <= 'Z')
 		myScene->addSprite(textSpriteOffset + ch, x, y);
-	if (ch >= '0' && ch <= '9')
+	else if (ch >= '0' && ch <= '9')
 		myScene->addSprite(numberSpriteOffset + ch, x, y);
 }
 

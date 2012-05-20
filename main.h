@@ -24,6 +24,7 @@ void finish(void);
 int16_t randno(int16_t n);
 void game(void);
 int mainprog(void);
+void afterendofgame(void);
 
 
 class MainWindow : public QMainWindow
