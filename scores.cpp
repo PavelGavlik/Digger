@@ -9,9 +9,11 @@
 #include "input.h"
 #include "main.h"
 #include "record.h"
-//#include "drawing.h"
 #include "sound.h"
 #include "sprite.h"
+#include <QTimer>
+
+extern MainWindow *mainWindow;
 
 struct scdat
 {
@@ -34,10 +36,13 @@ uint16_t bonusscore = 20000;
 
 bool gotinitflag = false;
 
+int16_t initialsi;
+
 void readscores(void);
 void writescores(void);
 void savescores(void);
-void getinitials(void);
+void beforegetinitials(void);
+void aftergetinitials(void);
 void flashywait(int16_t n);
 int16_t getinitial(int16_t x, int16_t y);
 void shufflehigh(void);
@@ -201,49 +206,49 @@ void addscore(int n, int16_t score)
 
 void endofgame(void)
 {
-//	int16_t i;
-//	bool initflag = false;
-//	for (i = 0; i < diggers; i++)
-//		addscore(i, 0);
-//	if (playing || !drfvalid)
-//		return;
-//	if (gauntlet)
-//	{
-//		cleartopline();
-//		outtext("TIME UP", 120, 0, 3);
-//		for (i = 0; i < 50 && !escape; i++)
-//			newframe();
-//		outtext("       ", 120, 0, 3);
-//	}
-//	for (i = curplayer; i < curplayer + diggers; i++)
-//	{
-//		scoret = scdat[i].score;
-//		if (scoret > scorehigh[11])
-//		{
-//			gclear();
-//			drawscores();
-//			strcpy(pldispbuf, "PLAYER ");
-//			if (i == 0)
-//				strcat(pldispbuf, "1");
-//			else
-//				strcat(pldispbuf, "2");
-//			outtext(pldispbuf, 108, 0, 2);
-//			outtext(" NEW HIGH SCORE ", 64, 40, 2);
-//			getinitials();
-//			shufflehigh();
-//			savescores();
-//			initflag = true;
-//		}
-//	}
-//	if (!initflag && !gauntlet)
-//	{
-//		cleartopline();
-//		outtext("GAME OVER", 104, 0, 3);
-//		for (i = 0; i < 50 && !escape; i++)
-//			newframe();
-//		outtext("         ", 104, 0, 3);
-//		setretr(true);
-//	}
+	int16_t i;
+	bool initflag = false;
+	for (i = 0; i < diggers; i++)
+		addscore(i, 0);
+	if (playing || !drfvalid)
+		return;
+	if (gauntlet)
+	{
+		cleartopline();
+		outtext("TIME UP", 120, 0, 3);
+		for (i = 0; i < 50 && !escape; i++)
+			newframe();
+		outtext("       ", 120, 0, 3);
+	}
+	for (i = curplayer; i < curplayer + diggers; i++)
+	{
+		scoret = scdat[i].score;
+		if (scoret > scorehigh[11])
+		{
+			gclear();
+			drawscores();
+			strcpy(pldispbuf, "PLAYER ");
+			if (i == 0)
+				strcat(pldispbuf, "1");
+			else
+				strcat(pldispbuf, "2");
+			outtext(pldispbuf, 108, 0, 2);
+			outtext(" NEW HIGH SCORE ", 64, 40, 2);
+//			beforegetinitials();
+			shufflehigh();
+			savescores();
+			initflag = true;
+		}
+	}
+	if (!initflag && !gauntlet)
+	{
+		cleartopline();
+		outtext("GAME OVER", 104, 0, 3);
+		for (i = 0; i < 50 && !escape; i++)
+			newframe();
+		outtext("         ", 104, 0, 3);
+		setretr(true);
+	}
 }
 
 void showtable(void)
@@ -284,36 +289,48 @@ void savescores(void)
 	writescores();
 }
 
-void getinitials(void)
+void beforegetinitials(void)
 {
-	int16_t k, i;
 	newframe();
 	outtext("ENTER YOUR", 100, 70, 3);
 	outtext(" INITIALS", 100, 90, 3);
 	outtext("_ _ _", 128, 130, 3);
 	strcpy(scoreinit[0], "...");
 	killsound();
-	for (i = 0; i < 3; i++)
+
+	initialsi = 0;
+	maingetinitials();
+}
+
+void maingetinitials(void)
+{
+	int16_t k = 0;
+	k = getinitial(initialsi * 24 + 128, 130);
+	if (k == 8 || k == 127)
 	{
+		if (initialsi > 0)
+			initialsi--;
 		k = 0;
-		while (k == 0)
-		{
-			k = getinitial(i * 24 + 128, 130);
-			if (k == 8 || k == 127)
-			{
-				if (i > 0)
-					i--;
-				k = 0;
-			}
-		}
-		if (k != 0)
-		{
-			gwrite(i * 24 + 128, 130, k, 3);
-			scoreinit[0][i] = k;
-		}
 	}
-	for (i = 0; i < 20; i++)
-		flashywait(15);
+
+	if (k == 0)
+		QTimer::singleShot(100, mainWindow, SLOT(getinitials()));
+	else
+	{
+		initialsi++;
+		if (initialsi < 3)
+			maingetinitials();
+		else
+			aftergetinitials();
+
+		gwrite(initialsi * 24 + 128, 130, k, 3);
+		scoreinit[0][initialsi] = k;
+	}
+
+}
+
+void aftergetinitials(void)
+{
 	setupsound();
 	gclear();
 	gpal(0);
@@ -337,31 +354,32 @@ void flashywait(int16_t n)
 
 int16_t getinitial(int16_t x, int16_t y)
 {
-	int16_t i;
+//	int16_t i;
 	gwrite(x, y, '_', 3);
-	do
-	{
-		for (i = 0; i < 40; i++)
-		{
+//	do
+//	{
+//		for (i = 0; i < 40; i++)
+//		{
 			if (kbhit())
 			{
 				int16_t key = getkey();
 				if (!isalnum(key))
-					continue;
+					return 0;
 				return key;
 			}
-			flashywait(15);
-		}
-		for (i = 0; i < 40; i++)
-		{
-			if (kbhit())
-			{
-				gwrite(x, y, '_', 3);
-				return getkey();
-			}
-			flashywait(15);
-		}
-	} while (1);
+			return 0;
+//			flashywait(15);
+//		}
+//		for (i = 0; i < 40; i++)
+//		{
+//			if (kbhit())
+//			{
+//				gwrite(x, y, '_', 3);
+//				return getkey();
+//			}
+//			flashywait(15);
+//		}
+//	} while (1);
 }
 
 void shufflehigh(void)

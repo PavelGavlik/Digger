@@ -17,6 +17,7 @@ void scoregold(int n);
 void scorebonus(int n);
 void scoreeatm(int n, int msc);
 void addscore(int n, int16_t score);
+void maingetinitials(void);
 
 #ifdef INTDRF
 int32_t getscore0(void);

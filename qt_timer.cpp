@@ -1,15 +1,8 @@
-#include <QWaitCondition>
-#include <QMutex>
-#include <QTime>
 #include "def.h"
 
-uint32_t prev = 0;
-extern uint32_t ftime;
-QTime t;
 
 void inittimer(void)
 {
-	t.start();
 }
 
 int32_t getlrt(void)
@@ -19,27 +12,6 @@ int32_t getlrt(void)
 
 uint32_t gethrt(void)
 {
-	int32_t diff;
-
-//	doscreenupdate();
-
-	// Speed controlling stuff
-	if (prev == 0)
-	{
-		prev = t.elapsed();
-	}
-	else
-	{
-		diff = (ftime / 1000 - (t.elapsed() - prev));
-		//qDebug() << diff;
-		if (diff > 0)
-		{
-			QWaitCondition sleep;
-			QMutex m;
-			sleep.wait(&m, diff);
-		}
-		prev = t.elapsed();
-	}
 	return (0);
 }
 

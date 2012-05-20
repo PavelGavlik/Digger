@@ -1,21 +1,12 @@
-#include <QKeyEvent>
-//#include <stdio.h>
-//#include <string.h>
-//#include <ctype.h>
 #include "drawing.h"
 #include "def.h"
 #include "digger.h"
 #include "main.h"
 #include "hardware.h"
 #include "sprite.h"
-//#include "sound.h"
-
 #include "input.h"
 #include "monster.h"
 #include "bags.h"
-
-GraphicsScene *myScene;
-GraphicsView *myView;
 
 int16_t field1[MSIZE], field2[MSIZE], field[MSIZE];
 
@@ -342,7 +333,7 @@ void drawsquareblob(int16_t x, int16_t y)
 	getis();
 }
 
-void drawbackg(int16_t)
+void drawbackg(int16_t l)
 {
 //	int16_t x, y;
 //	for (y = 14; y < 200; y += 4)
@@ -351,6 +342,7 @@ void drawbackg(int16_t)
 //		for (x = 0; x < 320; x += 20)
 //			drawmiscspr(x, y, 93 + l, 5, 4);
 //	}
+	Q_UNUSED(l)
 	myScene->invalidate(myView->rect(), QGraphicsScene::BackgroundLayer);
 }
 
@@ -468,87 +460,4 @@ void drawlives(void)
 
 void gretrace(void)
 {
-}
-
-
-Sprite::Sprite(int16_t spriteId)
-{
-	setPixmap(myScene->sprites[spriteId]);
-
-	// prevent digger and monster flickering by setting higher z-index
-	if (spriteId <= 93)
-		setZValue(1);
-
-	this->type = spriteId;
-}
-
-
-GraphicsScene::GraphicsScene()
-{
-	myScene = this;
-
-	setSceneRect(0, 0, 640, 400);
-	addRect(0, 0, 640, 28, QPen(), QBrush(Qt::black));
-	this->spritesInit();
-}
-
-
-void GraphicsScene::spritesInit()
-{
-	QImage spriteImage = QImage(":/images/sprites.png");
-	for (int i = 0; i < 160; i++)
-	{
-		int id = i * 4;
-		sprites << QPixmap::fromImage(spriteImage.copy(
-					   spriteDimensions[id], spriteDimensions[id + 1],
-					   spriteDimensions[id + 2], spriteDimensions[id + 3]));
-	}
-}
-
-void GraphicsScene::addSprite(int16_t spriteId, int16_t x, int16_t y)
-{
-	if (spriteId <= 0 || spriteId >= myScene->sprites.length())
-	{
-		qDebug() << spriteId << "not found";
-		return;
-	}
-
-	Sprite *s = new Sprite(spriteId);
-	myScene->addItem(s);
-	s->setPos(x * 2, y * 2);
-}
-
-
-GraphicsView::GraphicsView(QGraphicsScene *parent) :
-	QGraphicsView(parent)
-{
-	myView = this;
-
-	setCacheMode(QGraphicsView::CacheBackground);
-	setRenderHint(QPainter::Antialiasing);
-	setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-}
-
-void GraphicsView::drawBackground(QPainter *painter, const QRectF &rect)
-{
-	int16_t lvl = levplan();
-	if (lvl <= 0)
-		painter->fillRect(rect, Qt::black);
-	else
-		painter->fillRect(rect, QBrush(myScene->sprites[96 + lvl - 1]));
-}
-
-void GraphicsView::resizeEvent(QResizeEvent *)
-{
-	//fitInView(scene()->sceneRect(), Qt::KeepAspectRatio);
-}
-
-void GraphicsView::keyPressEvent(QKeyEvent *event)
-{
-	PressKey(event->key());
-}
-
-void GraphicsView::keyReleaseEvent(QKeyEvent *event)
-{
-	ReleaseKey(event->key());
 }

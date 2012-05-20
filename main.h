@@ -3,8 +3,8 @@
 
 #include <QApplication>
 #include <QMainWindow>
-#include <QMenuBar>
 #include "drawing.h"
+#include "qt_vid.h"
 
 extern int16_t nplayers, diggers, curplayer, startlev;
 extern bool levfflag;
@@ -42,6 +42,7 @@ private:
 public slots:
 	void titlescreenframeslot(void);
 	void gamephaseslot(void);
+	void getinitials(void);
 };
 
 #endif // MAIN_H

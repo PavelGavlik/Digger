@@ -36,45 +36,4 @@ extern int16_t fireheight;
 
 void movedrawspr(int16_t n, int16_t x, int16_t y);
 
-
-class Sprite : public QGraphicsPixmapItem
-{
-public:
-	Sprite(int16_t spriteId);
-	int16_t type;
-private:
-	int16_t getNewId(int16_t oldId);
-};
-
-
-class GraphicsScene : public QGraphicsScene
-{
-	Q_OBJECT
-public:
-	explicit GraphicsScene();
-	void addSprite(int16_t spriteId, int16_t x, int16_t y);
-
-	QList<QPixmap> sprites;
-private:
-	void spritesInit();
-};
-
-
-class GraphicsView : public QGraphicsView
-{
-	Q_OBJECT
-public:
-	explicit GraphicsView(QGraphicsScene *parent = 0);
-	void drawBackground(QPainter *painter, const QRectF &rect);
-protected:
-	void resizeEvent(QResizeEvent *);
-	void keyPressEvent(QKeyEvent *event);
-	void keyReleaseEvent(QKeyEvent *event);
-};
-
-
-extern int spriteDimensions[];
-extern GraphicsScene *myScene;
-extern GraphicsView *myView;
-
 #endif // GRAPHICSVIEW_H

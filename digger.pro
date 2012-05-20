@@ -21,7 +21,8 @@ HEADERS += \
     record.h \
     sound.h \
     hardware.h \
-    sprite.h
+    sprite.h \
+    qt_vid.h
 SOURCES += \
     main.cpp \
     digger.cpp \

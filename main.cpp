@@ -201,7 +201,10 @@ void aftergamephase(void)
 		if (getalllives() != 0 && !escape && !timeout)
 			beforegamephase();
 		else
+		{
+			gamedat[0].level = 0;
 			mainprog();
+		}
 	}
 }
 
@@ -324,7 +327,7 @@ int mainprog(void)
 		gtitle();
 		outtext("D I G G E R", 100, 0, 3);
 		shownplayers();
-		showtable();
+//		showtable();
 		started = false;
 		newframe();
 		teststart();
@@ -768,17 +771,13 @@ int16_t randno(int16_t n)
 MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags f) :
 	QMainWindow(parent, f)
 {
-	menu = menuBar();
-	QMenu* menu_game = new QMenu("G&ame", menu);
-	menu_game->addAction("End game", qApp, SLOT(quit()), QKeySequence::Quit);
-	menu->addMenu(menu_game);
-
-	scene = new GraphicsScene;
+	scene = new GraphicsScene(this);
 	view = new GraphicsView(scene);
 
 	setWindowTitle(QObject::tr("D I G G E R"));
 	setCentralWidget(view);
 	setMinimumSize(640, 400);
+	setSizePolicy(QSizePolicy());
 
 	show();
 }
@@ -814,6 +813,11 @@ void MainWindow::gamephaseslot(void)
 		QTimer::singleShot(100, mainWindow, SLOT(gamephaseslot()));
 		gamephase();
 	}
+}
+
+void MainWindow::getinitials()
+{
+	maingetinitials();
 }
 
 
