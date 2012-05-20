@@ -1,3 +1,4 @@
+
 #include "def.h"
 #include <QGraphicsItem>
 #include <QKeyEvent>
@@ -139,7 +140,6 @@ void GraphicsScene::addSprite(int16_t spriteId, int16_t x, int16_t y)
 {
 	if (spriteId <= 0 || spriteId >= myScene->sprites.length())
 	{
-		qDebug() << spriteId << "not found";
 		return;
 	}
 

@@ -100,9 +100,9 @@ void writescores(void)
 {
 	FILE *out;
 	if (!levfflag)
-	{qDebug() << SFNAME << fopen(SFNAME, "wb");
+	{
 		if ((out = fopen(SFNAME, "wb")) != NULL)
-		{qDebug() << out;
+		{
 			fwrite(scorebuf, 512, 1, out);
 			fclose(out);
 		}
