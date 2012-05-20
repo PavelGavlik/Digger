@@ -432,7 +432,7 @@ void updatedigger(int n)
 	switch (digdat[n].mdir)
 	{
 	case DIR_RIGHT:
-		drawrightblob(digdat[n].x, digdat[n].y);
+		drawrightblob(digdat[n].x - 1, digdat[n].y);
 		digdat[n].x += 4;
 		break;
 	case DIR_UP:
@@ -861,7 +861,7 @@ void initlives(void)
 {
 	int i;
 	for (i = 0; i < diggers + nplayers - 1; i++)
-		digdat[i].lives = 1;//3;
+		digdat[i].lives = 2;//3;
 }
 
 void declife(int pl)

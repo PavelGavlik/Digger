@@ -66,7 +66,7 @@ void drawbags(void)
 		else
 			memcpy(&bagdat[bag], &bagdat2[bag], sizeof(struct bag));
 		if (bagdat[bag].exist)
-			movedrawspr(/*bag +*/ FIRSTBAG, bagdat[bag].x, bagdat[bag].y);
+			movedrawspr(bag + FIRSTBAG, bagdat[bag].x, bagdat[bag].y);
 	}
 }
 

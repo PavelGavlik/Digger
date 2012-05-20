@@ -217,21 +217,20 @@ int spriteDimensions[] = {
 
 	/* 102 Blobs (holes after digger) */
 	584,	406,	16,	36, /* 102 right blob */
-	732,	406,	44,	12, /* 103 left blob */
-	640,	406,	16,	36, /* 104 top blob */
+	732,	406,	44,	12, /* 103 top blob */
+	640,	406,	16,	36, /* 104 left blob */
 	820,	430,	44,	12, /* 105 bottom blob */
 
-	1000,	408,	32,	30, /* 106 square blob */
-	912,	408,	32,	30, /* 107 furry blob */
+	995,	405,	40,	12, /* 106 square blob */
+	907,	425,	40,	12, /* 107 furry blob */
 
 	32,		296,	32,	30, /* emerald */
 	32,		296,	32,	30, // vgazero480
 
 	736,	352,	32,	30, /* 110 vgaliferight */
-
 	824,	352,	32,	30, // vgalifeleft
-	8,		568,	20,	28, // vgazero480
-	912,	352,	32,	30, // vgaleftlife
+	648,	352,	32,	30, // nolifeleft
+	648,	352,	32,	30, // nolifeleft
 
 	32,		464,	32,	30, //	vgafire1b
 	120,	464,	32,	30, //	vgafire2b
